@@ -65,7 +65,7 @@ class App extends Component {
     fetch("https://cors-anywhere.herokuapp.com/" + url).then
     ((r => 
       {var file = r.blob();
-        // console.log(file);
+        console.log(file);
         this.loadProjectFile(file);
       }).bind(this));
   };
@@ -83,7 +83,7 @@ class App extends Component {
     new ProjectFile(projectPack, this.canvas)
       .then((projectFile) => {
         this.setState({ projectFile: projectFile });
-        // console.log(projectFile);
+        console.log(projectFile);
         this.setState({statusMessage: `Current Project: ${this.state.projectFile.info["title"]} by ${this.state.projectFile.info["producerName"]}`});
       })
       .catch((message) => {
@@ -106,8 +106,8 @@ class App extends Component {
   };
 
   onMidiStateChange(e) {
-    // console.log(e);
-    // console.log(e.port.name, e.port.type, e.port.state);
+    console.log(e);
+    console.log(e.port.name, e.port.type, e.port.state);
     if (e.port.state === "disconnected") {
       if (e.port.type === "input") {
         if (
@@ -134,18 +134,18 @@ class App extends Component {
   
   updateMidiList() {
     var midiInput = {};
-    // console.log("Input");
+    console.log("Input");
     for (var input of WebMidi.inputs) {
-      // console.log(input.name);
+      console.log(input.name);
       midiInput[input.name] = input
     }
     this.setState({ midiInput: midiInput });
 
     var midiOutput = {};
-    // console.log();
-    // console.log("Output");
+    console.log();
+    console.log("Output");
     for (var output of WebMidi.outputs) {
-      // console.log(output.name);
+      console.log(output.name);
       midiOutput[output.name] = output
     }
     this.setState({ midiOutput: midiOutput });
@@ -164,11 +164,11 @@ class App extends Component {
       for (var key in deviceConfigs) {
         if (deviceConfigs[key].midiNameRegex !== undefined && deviceName.match(deviceConfigs[key].midiNameRegex) !== null) {
           var config = deviceConfigs[key];
-          // console.log(
-          //   `${
-          //     mode ? "Output" : "input"
-          //   } config has been auto assigned to ${key}`
-          // );
+          console.log(
+            `${
+              mode ? "Output" : "input"
+            } config has been auto assigned to ${key}`
+          );
           switch (mode) {
             case "Input":
               this.setInputConfig({label: key, value: config})
@@ -295,21 +295,21 @@ class App extends Component {
   }
 
   setLayoutConfig(config) {
-    // console.log(config)
+    console.log(config)
     this.setState({ layoutConfigName: config.label });
     this.setState({ layoutConfig: config.value });
     localStorage.setItem('perferedLayoutConfig', config.label);
   }
 
   setInputConfig(config) {
-    // console.log(config)
+    console.log(config)
     this.setState({ inputConfigName: config.label });
     this.setState({ inputConfig: config.value }, this.initlizateInputDevice.bind(this));
     localStorage.setItem('perferedInputConfig', config.label);
   }
 
   setOutputConfig(config) {
-    // console.log(config)
+    console.log(config)
     this.setState({ outputConfigName: config.label });
     this.setState({ outputConfig: config.value }, this.initlizateOutputDevice.bind(this));
     localStorage.setItem('perferedOutputConfig', config.label);
@@ -322,7 +322,7 @@ class App extends Component {
   }
 
   setOutputDevice(device, autoPickConfig = true) {
-    // console.log("Output device set to " + device.name);
+    console.log("Output device set to " + device.name);
     this.setState({ outputDevice: device.value });
     if(autoPickConfig) this.autoConfigPicker(device.value.name, "Output");
     localStorage.setItem('perferedOutputDevice', device.value.name);

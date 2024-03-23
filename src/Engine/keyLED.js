@@ -27,8 +27,8 @@ class KeyLED
     if(this.activeList[this.id_str] === undefined)
     {
       this.activeList[this.id_str] = this.id
-      // console.log("Active List added")
-      // console.log(this.activeList)
+      console.log("Active List added")
+      console.log(this.activeList)
     }
     var threadID = this.getID()
     this.activeThread = threadID
@@ -36,8 +36,8 @@ class KeyLED
     var currentLoop = 0
     this.end = false;
     this.lastEventTime = Date.now()
-    // console.log("KeyLED")
-    // console.timeLog("KeyOn")
+    console.log("KeyLED")
+    console.timeLog("KeyOn")
     while(this.repeat === 0 || currentLoop++ < this.repeat)
     {
       for(var line of this.keyLED)
@@ -50,7 +50,7 @@ class KeyLED
           continue;
         
         let command = line.split(" ");
-        // console.log(line)
+        console.log(line)
 
         switch(command[0])
         {
@@ -175,10 +175,10 @@ class KeyLED
 
   removeFromActiveList()
   {
-    // console.log("Try to delete " + this.id_str)
-    // console.log(this.activeList)
+    console.log("Try to delete " + this.id_str)
+    console.log(this.activeList)
     delete this.activeList[this.id_str]
-    // console.log(this.activeList)
+    console.log(this.activeList)
   }
 }
 

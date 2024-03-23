@@ -8,12 +8,12 @@ class keySound {
   loopCounter = {};
 
   constructor(file, name) {
-    // console.log(Howler.usingWebAudio)
-    // console.log(file)
+    console.log(Howler.usingWebAudio)
+    console.log(file)
     this.file = window.URL.createObjectURL(new File([file], name))
     this.format = name.toLowerCase().split(".").pop()
-    // console.log(this.format)
-    // console.log(Howler.codecs(this.format))
+    console.log(this.format)
+    console.log(Howler.codecs(this.format))
     this.howl = new Howl({
       src: [this.file],
       format: [this.format],
@@ -35,8 +35,8 @@ class keySound {
     }
 
     var id = this.howl.play()
-    // console.log("KeySound")
-    // console.timeLog("KeyOn")
+    console.log("KeySound")
+    console.timeLog("KeyOn")
 
     this.loopCounter[id] = 0
     this.loopTarget[id] = loop;
@@ -50,7 +50,7 @@ class keySound {
   }
 
   onEnd(id) {
-    // console.log(`ID ${id} Loop #${this.loopCounter[id]} ended`)
+    console.log(`ID ${id} Loop #${this.loopCounter[id]} ended`)
     if (this.loopTarget[id] !== 0 && ++this.loopCounter[id] >= this.loopTarget[id]) { // So if loopTarget is 0 then it will keep going
       this.howl._loop = false
       this.howl.stop(id)

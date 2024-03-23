@@ -56,13 +56,13 @@ class Canvas extends Component {
   }
 
   setupMidiInput(newInput, oldInput) {
-    // console.log([newInput, oldInput])
+    console.log([newInput, oldInput])
     if (oldInput !== undefined) oldInput.removeListener();
     if (newInput !== undefined) newInput.addListener("midimessage", "all", this.midiInputHandler.bind(this));
   }
 
   midiInputHandler = (midiEvent) => {
-    // console.log(midiEvent.data)
+    console.log(midiEvent.data)
     var [event, note, velocity] = midiEvent.data
     var [x, y] = [undefined, undefined]
     if(this.props.inputConfig.noteToXY !== undefined)
@@ -75,7 +75,7 @@ class Canvas extends Component {
     {
       [x, y] = this.indexOf2dArray(note, this.props.inputConfig.keymap); 
     }
-    // console.log([x, y]);
+    console.log([x, y]);
     if (x !== undefined && y !== undefined) {
       // let [canvas_x, canvas_y] = this.arrayCalculation([x, y], this.props.inputConfig.canvas_origin, "-");
       switch (event >> 4) {
@@ -110,8 +110,8 @@ class Canvas extends Component {
     } else {
       [x, y] = this.arrayCalculation([x, y], config.canvas_origin, "+");
     }
-    // console.log("Note On - " + x.toString() + " " + y.toString());
-    // console.log([x, y, canvas_x, canvas_y])
+    console.log("Note On - " + x.toString() + " " + y.toString());
+    console.log([x, y, canvas_x, canvas_y])
 
     if (this.props.projectFile !== undefined) {
       if (canvas_x >= 0 && canvas_x < 8 && canvas_y >= 0 && canvas_y < 8) {
@@ -125,7 +125,7 @@ class Canvas extends Component {
         if (sound && this.props.projectFile.keySound !== undefined && this.props.projectFile.keySound[this.currentChain] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length > 0) {
           //Sound
           let soundIndex = this.keypressHistory[canvas_x][canvas_y] % this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length;
-          // console.log('Play sound ${this.currentChain} ${canvas_x}')
+          console.log('Play sound ${this.currentChain} ${canvas_x}')
           if (this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][1] !== undefined) {
             //Has special data
             if (
@@ -162,7 +162,7 @@ class Canvas extends Component {
     } else {
       [x, y] = this.arrayCalculation([x, y], config.canvas_origin, "+");
     }
-    // console.log("Note Off - " + x.toString() + " " + y.toString());
+    console.log("Note Off - " + x.toString() + " " + y.toString());
 
     if (this.props.projectFile !== undefined) {
       if (canvas_x >= 0 && canvas_x < 8 && canvas_y >= 0 && canvas_y < 8) {
@@ -178,7 +178,7 @@ class Canvas extends Component {
         if (sound && this.props.projectFile.keySound !== undefined && this.props.projectFile.keySound[this.currentChain] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length > 0) {
           //Sound
           let soundIndex = this.keypressHistory[canvas_x][canvas_y] % this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length;
-          // console.log('Play sound ${this.currentChain} ${canvas_x}')
+          console.log('Play sound ${this.currentChain} ${canvas_x}')
           if (this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][1] !== undefined) {
             if (
               this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][1][0] == "0" // Inf Loop
@@ -214,13 +214,13 @@ class Canvas extends Component {
   };
 
   setColor = (x, y, color) => {
-    // console.log(`Set Color ${x} ${y} ${color}`)
+    console.log(`Set Color ${x} ${y} ${color}`)
     this.setColorCanvas(x, y, color);
     this.setColorOutput(x, y, color);
   };
 
   setHighlight = (x, y, color) => {
-    // console.log(`Set Color ${x} ${y} ${color}`)
+    console.log(`Set Color ${x} ${y} ${color}`)
     this.setHighlightCanvas(x, y, color);
   };
 
@@ -348,7 +348,7 @@ class Canvas extends Component {
   }
 
   sendSysex(message) {
-    // console.log(message)
+    console.log(message)
     this.props.outputDevice.sendSysex([], message);
   }
 

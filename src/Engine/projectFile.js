@@ -20,7 +20,7 @@ class ProjectFile {
   unpack(projectFile) {
     return new Promise(async (resolve, reject) => {
       try{
-      // console.log(this.info)
+      console.log(this.info)
       let JSZip = require("jszip");
       let files = await JSZip.loadAsync(projectFile).then(function (zip) {
         return Object.values(zip.files)
@@ -41,7 +41,7 @@ class ProjectFile {
         {
           if (filename.includes("sounds/")) //Audio
           {
-            // console.log("Sound file: " + filename);
+            console.log("Sound file: " + filename);
             this.soundFiles[filename.split("/").pop()] = await file.async("blob").then(function (blob) {
               return new keySound(blob, filename.split("/").pop())
             });
@@ -50,46 +50,46 @@ class ProjectFile {
             let text = await file.async("text").then((text) => { return text = text.split(/\r?\n/); });
             if (filename.endsWith("info")) //Text
             {
-              // console.log("Info file: " + filename);
+              console.log("Info file: " + filename);
               projectRoot = filename.slice(0, -4);
-              // console.log(" project root: " + projectRoot);
+              console.log(" project root: " + projectRoot);
               text.forEach(info => this.info[info.split('=')[0]] = info.split('=')[1]);
               this.info["buttonX"] = parseInt(this.info["buttonX"]);
               this.info["buttonY"] = parseInt(this.info["buttonY"]);
               this.info["chain"] = parseInt(this.info["chain"]);
               this.info["squareButton"] = this.info["squareButton"] === "true";
               this.info["landscape"] = this.info["landscape"] === "true";
-              // console.log(" title: " + this.info["title"])
-              // console.log(" producerName: " + this.info["producerName"])
-              // console.log(" buttonX: " + this.info["buttonX"])
-              // console.log(" buttonY: " + this.info["buttonY"])
-              // console.log(" chain: " + this.info["chain"])
-              // console.log(" squareButton: " + this.info["squareButton"])
-              // console.log(" landscape: " + this.info["landscape"])
+              console.log(" title: " + this.info["title"])
+              console.log(" producerName: " + this.info["producerName"])
+              console.log(" buttonX: " + this.info["buttonX"])
+              console.log(" buttonY: " + this.info["buttonY"])
+              console.log(" chain: " + this.info["chain"])
+              console.log(" squareButton: " + this.info["squareButton"])
+              console.log(" landscape: " + this.info["landscape"])
               if (this.info["buttonX"] !== 8 || this.info["buttonY"] !== 8) {
                 reject("Only 8x8 Unipad project are supported");
                 return;
               }
               if (this.info["chain"] > 8) {
-                // reject("Only Unipad project that has within 8 chains are supported");
-                // alert(`This Unipad Project has ${this.info["chain"]} chains. Projects that has more than 8 chains are limited supported`)
+                reject("Only Unipad project that has within 8 chains are supported");
+                alert(`This Unipad Project has ${this.info["chain"]} chains. Projects that has more than 8 chains are limited supported`)
                 // return;
               }
             }
             else if (filename.endsWith("keysound")) {
-              // console.log("KeySound file: " + filename);
+              console.log("KeySound file: " + filename);
               keySoundFile = text;
             }
             else if (filename.endsWith("autoplay")) {
-              // console.log("AutoPlay file: " + filename);
+              console.log("AutoPlay file: " + filename);
               autoplayFile = text;
             }
             else if (filename.includes("keyled/")) {
-              // console.log("KeyLED file: " + filename);
+              console.log("KeyLED file: " + filename);
               keyLEDFiles[filename] = text;
             }
             else {
-              // console.log("Unknown file: " + filename);
+              console.log("Unknown file: " + filename);
             }
           }
         }
@@ -119,7 +119,7 @@ class ProjectFile {
         // }
         // else if (fileInfo.length === 4) {
           let index = fileInfo[4] !== undefined ? fileInfo[4].charCodeAt(0) - 97 : 0 //97 is 'a' 
-          // console.log([parseInt(fileInfo[0]) - 1, parseInt(fileInfo[2]) - 1, parseInt(fileInfo[1]) - 1, index])
+          console.log([parseInt(fileInfo[0]) - 1, parseInt(fileInfo[2]) - 1, parseInt(fileInfo[1]) - 1, index])
           let [chain, x, y, repeat] = [parseInt(fileInfo[0]) - 1, parseInt(fileInfo[2]) - 1, parseInt(fileInfo[1]) - 1, parseInt(fileInfo[3])]
           this.keyLED[chain][x][y][index] = new KeyLED(text, repeat, this.canvas, [chain, x, y, index], this.activeKeyLED)
         // }
@@ -143,9 +143,9 @@ class ProjectFile {
 
           let command = line.split(" ");
 
-          // console.log(command);
+          console.log(command);
           let [chain, x, y, filename] = [parseInt(command[0]) - 1, parseInt(command[2]) - 1, parseInt(command[1]) - 1, command[3].toLowerCase()]
-          // console.log([chain, x, y, filename])
+          console.log([chain, x, y, filename])
           this.keySound[chain][x][y].push([this.soundFiles[filename], command.slice(4)]);
         }
         catch
@@ -172,7 +172,7 @@ class ProjectFile {
   }
 
   stopKeyLED() {
-    // console.log(this.activeKeyLED)
+    console.log(this.activeKeyLED)
     for(var id_str in this.activeKeyLED)
     {
       var[chain, x, y, index] = this.activeKeyLED[id_str]
