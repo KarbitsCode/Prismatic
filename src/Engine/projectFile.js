@@ -71,8 +71,8 @@ class ProjectFile {
                 return;
               }
               if (this.info["chain"] > 8) {
-                reject("Only Unipad project that has within 8 chains are supported");
-                alert(`This Unipad Project has ${this.info["chain"]} chains. Projects that has more than 8 chains are limited supported`)
+                // reject("Only Unipad project that has within 8 chains are supported");
+                // alert(`This Unipad Project has ${this.info["chain"]} chains. Projects that has more than 8 chains are limited supported`)
                 // return;
               }
             }
