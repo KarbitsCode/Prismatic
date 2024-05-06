@@ -36,8 +36,8 @@ class KeyLED
     var currentLoop = 0
     this.end = false;
     this.lastEventTime = Date.now()
-    console.log("KeyLED")
-    console.timeLog("KeyOn")
+    // console.log("KeyLED")
+    // console.timeLog("KeyOn")
     while(this.repeat === 0 || currentLoop++ < this.repeat)
     {
       for(var line of this.keyLED)
@@ -50,7 +50,7 @@ class KeyLED
           continue;
         
         let command = line.split(" ");
-        console.log(line)
+        // console.log(line)
 
         switch(command[0])
         {

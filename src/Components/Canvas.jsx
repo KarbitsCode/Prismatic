@@ -125,7 +125,7 @@ class Canvas extends Component {
         if (sound && this.props.projectFile.keySound !== undefined && this.props.projectFile.keySound[this.currentChain] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length > 0) {
           //Sound
           let soundIndex = this.keypressHistory[canvas_x][canvas_y] % this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length;
-          console.log('Play sound ${this.currentChain} ${canvas_x}')
+          console.log(`Play sound ${this.currentChain} ${canvas_x}`)
           if (this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][1] !== undefined) {
             //Has special data
             if (
@@ -178,7 +178,7 @@ class Canvas extends Component {
         if (sound && this.props.projectFile.keySound !== undefined && this.props.projectFile.keySound[this.currentChain] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length > 0) {
           //Sound
           let soundIndex = this.keypressHistory[canvas_x][canvas_y] % this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length;
-          console.log('Play sound ${this.currentChain} ${canvas_x}')
+          console.log(`Play sound ${this.currentChain} ${canvas_x}`)
           if (this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][1] !== undefined) {
             if (
               this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][1][0] == "0" // Inf Loop
@@ -214,7 +214,7 @@ class Canvas extends Component {
   };
 
   setColor = (x, y, color) => {
-    console.log(`Set Color ${x} ${y} ${color}`)
+    // console.log(`Set Color ${x} ${y} ${color}`)
     this.setColorCanvas(x, y, color);
     this.setColorOutput(x, y, color);
   };

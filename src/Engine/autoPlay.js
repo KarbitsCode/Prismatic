@@ -18,7 +18,7 @@ class AutoPlay {
   }
 
   play = async (callback) => {
-    console.time("Autoplay")
+    // console.time("Autoplay")
     if (this.progress === 0) {
       this.canvas.initlalizeCanvas();
       this.canvas.autoplay = this;
@@ -31,14 +31,14 @@ class AutoPlay {
     this.status = "PLAYING"
     this.lastEventTime = Date.now()
     for (this.progress; this.progress < this.autoplay.length; this.progress++) {
-      console.timeEnd("Autoplay");
-      console.time("Autoplay")
+      // console.timeEnd("Autoplay");
+      // console.time("Autoplay")
 
       if (this.status != "PLAYING") {
         return;
       }
 
-      console.log(this.autoplay[this.progress])
+      // console.log(this.autoplay[this.progress])
       let command = this.autoplay[this.progress].split(" ");
 
       if(callback !== undefined)

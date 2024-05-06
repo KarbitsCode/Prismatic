@@ -134,18 +134,18 @@ class App extends Component {
   
   updateMidiList() {
     var midiInput = {};
-    console.log("Input");
+    // console.log("Input");
     for (var input of WebMidi.inputs) {
-      console.log(input.name);
+      // console.log(input.name);
       midiInput[input.name] = input
     }
     this.setState({ midiInput: midiInput });
 
     var midiOutput = {};
-    console.log();
-    console.log("Output");
+    // console.log();
+    // console.log("Output");
     for (var output of WebMidi.outputs) {
-      console.log(output.name);
+      // console.log(output.name);
       midiOutput[output.name] = output
     }
     this.setState({ midiOutput: midiOutput });
