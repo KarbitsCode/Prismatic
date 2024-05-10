@@ -109,6 +109,7 @@ class AutoPlay {
     this.status = "STOPPED"
     this.progress = 0
     this.canvas.autoplay = null;
+    console.log("Autoplay End");
   }
 
   backward()

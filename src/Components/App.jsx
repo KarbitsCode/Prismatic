@@ -199,6 +199,7 @@ class App extends Component {
             <text className="sidebarItem">
               {this.state.statusMessage}
             </text>
+            <br></br>
             <ProjectFileReader
               loadProjectFile={this.loadProjectFile}
             ></ProjectFileReader>

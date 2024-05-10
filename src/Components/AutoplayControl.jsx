@@ -81,7 +81,7 @@ class AutoplayControl extends Component {
         // this.props.canvas.current,
         // this.props.layoutConfig.canvas_origin
       );
-      console.log("Autoplay Playing");
+      console.log("Autoplay Started");
     } else {
       alert("No project loaded!");
     }
