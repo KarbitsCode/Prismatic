@@ -194,7 +194,7 @@ class App extends Component {
         <div className="main">
           <div className="sidebar">
             <text>203 | Prismatic (Tech Preview Demo)</text>
-            <div><a href="https://play.203.io/">Load Amethyst Player</a></div>
+            <div><a href="https://play.203.io/" target="_self">Load Amethyst Player</a></div>
             <div className="sidebarItem" />
             <text className="sidebarItem">
               {this.state.statusMessage}
