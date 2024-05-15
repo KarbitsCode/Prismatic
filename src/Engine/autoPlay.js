@@ -34,7 +34,7 @@ class AutoPlay {
       // console.timeEnd("Autoplay");
       // console.time("Autoplay")
 
-      if (this.status != "PLAYING") {
+      if (this.status !== "PLAYING") {
         return;
       }
 
@@ -47,7 +47,7 @@ class AutoPlay {
       if (command.length < 2)
         continue;
 
-      if (this.canvas.currentChain != this.currentChain) {
+      if (this.canvas.currentChain !== this.currentChain) {
         this.canvas.chainChange(this.currentChain);
       }
 
@@ -114,7 +114,7 @@ class AutoPlay {
 
   backward()
   {
-    if(this.status == "PAUSED")
+    if(this.status === "PAUSED")
     {
       
     }
@@ -122,7 +122,7 @@ class AutoPlay {
 
   forward()
   {
-    if(this.status == "PAUSED")
+    if(this.status === "PAUSED")
     {
 
     }
@@ -138,7 +138,7 @@ class AutoPlay {
     for(var progress = this.progress; progress >= 0; progress--)
     {
       let command = this.autoplay[this.progress].split(" ");
-      if(command == "c" || command == "chain")
+      if(command === "c" || command === "chain")
       {
         this.canvas.chainChange(parseInt(command[1]) - 1);
         this.currentChain = parseInt(command[1]) - 1;

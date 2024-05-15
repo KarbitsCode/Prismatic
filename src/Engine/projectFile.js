@@ -138,7 +138,7 @@ class ProjectFile {
         line = line.trim()
         try
         {
-          if (line == "") //For empty lines
+          if (line === "") //For empty lines
           continue;
 
           let command = line.split(" ");

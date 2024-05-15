@@ -73,7 +73,7 @@ const deviceConfigs = {
     },
 
     hexSysexGen: function () {
-      if (arguments.length != 2 && arguments.length != 3)
+      if (arguments.length !== 2 && arguments.length !== 3)
         return [] //Error
       switch (arguments.length) {
         case 2: //ID
@@ -96,7 +96,7 @@ const deviceConfigs = {
         return []
       }
       var r = (hex >> 16) >> 2 //6 bit color
-      var g = (hex & 0xFF00 >> 8) >> 2
+      var g = ((hex & 0xFF00) >> 8) >> 2
       var b = (hex & 0xFF) >> 2
       return [0, 32, 41, 2, 16, 11, id, r, g, b]
     }
@@ -204,14 +204,14 @@ const deviceConfigs = {
       {
         return this.mcTable[note - 28]
       }
-      else if(note == 27)
+      else if(note === 27)
       {
         return this.lKey
       }
     },
 
     hexSysexGen: function () {
-      if (arguments.length != 2 && arguments.length != 3)
+      if (arguments.length !== 2 && arguments.length !== 3)
         return [] //Error
       switch (arguments.length) {
         case 2: //ID
@@ -234,7 +234,7 @@ const deviceConfigs = {
         return []
       }
       var r = (hex >> 16) >> 2 //6 bit color
-      var g = (hex & 0xFF00 >> 8) >> 2
+      var g = ((hex & 0xFF00) >> 8) >> 2
       var b = (hex & 0xFF) >> 2
       return [0, 32, 41, 2, 16, 11, id, r, g, b]
     }
@@ -296,7 +296,7 @@ const deviceConfigs = {
       },
 
     hexSysexGen: function () {
-      if (arguments.length != 2 && arguments.length != 3)
+      if (arguments.length !== 2 && arguments.length !== 3)
         return [] //Error
       switch (arguments.length) {
         case 2: //ID
@@ -319,7 +319,7 @@ const deviceConfigs = {
         return []
       }
       var r = (hex >> 16) >> 2 //6 bit color
-      var g = (hex & 0xFF00 >> 8) >> 2
+      var g = ((hex & 0xFF00) >> 8) >> 2
       var b = (hex & 0xFF) >> 2
       return [0, 32, 41, 2, 24, 11, id, r, g, b]
     }
@@ -383,7 +383,7 @@ const deviceConfigs = {
     },
 
     hexSysexGen: function () {
-      if (arguments.length != 2 && arguments.length != 3)
+      if (arguments.length !== 2 && arguments.length !== 3)
         return [] //Error
       switch (arguments.length) {
         case 2: //MC
@@ -403,7 +403,7 @@ const deviceConfigs = {
       }
       var xy = x * 10 + y
       var r = (hex >> 16) >> 1 //7 bit color
-      var g = (hex & 0xFF00 >> 8) >> 1
+      var g = ((hex & 0xFF00) >> 8) >> 1
       var b = (hex & 0xFF) >> 1
       return [0, 32, 41, 2, 12, 3, 3, xy, r, g, b]
     }
@@ -474,7 +474,7 @@ const deviceConfigs = {
     },
 
     hexSysexGen: function () {
-      if (arguments.length != 2 && arguments.length != 3)
+      if (arguments.length !== 2 && arguments.length !== 3)
         return [] //Error
       switch (arguments.length) {
         case 2: //MC
@@ -494,7 +494,7 @@ const deviceConfigs = {
       }
       var xy = x * 10 + y
       var r = (hex >> 16) >> 1 //7 bit color
-      var g = (hex & 0xFF00 >> 8) >> 1
+      var g = ((hex & 0xFF00) >> 8) >> 1
       var b = (hex & 0xFF) >> 1
       return [0, 32, 41, 2, 14, 3, 3, xy, r, g, b]
     }
@@ -556,7 +556,7 @@ const deviceConfigs = {
     },
 
     hexSysexGen: function () {
-      if (arguments.length != 3)
+      if (arguments.length !== 3)
         return [] //Error
       switch (arguments.length) {
         // case 2: //MC
@@ -574,7 +574,7 @@ const deviceConfigs = {
           return;
       }
       var r = (hex >> 16) >> 1 //7 bit color
-      var g = (hex & 0xFF00 >> 8) >> 1
+      var g = ((hex & 0xFF00) >> 8) >> 1
       var b = (hex & 0xFF) >> 1
       return [240, 0, 2, 3, 1, 0, 18, 32, 0, 3, r, g, b, 247]
     }
@@ -636,7 +636,7 @@ const deviceConfigs = {
     },
 
     hexSysexGen: function () {
-      if (arguments.length != 3)
+      if (arguments.length !== 3)
         return [] //Error
       switch (arguments.length) {
         // case 2: //MC
@@ -654,7 +654,7 @@ const deviceConfigs = {
           return;
       }
       var r = (hex >> 16) >> 1 //7 bit color
-      var g = (hex & 0xFF00 >> 8) >> 1
+      var g = ((hex & 0xFF00) >> 8) >> 1
       var b = (hex & 0xFF) >> 1
       return [240, 0, 2, 3, 1, 0, 18, 32, 0, 3, r, g, b, 247]
     }
@@ -703,7 +703,7 @@ const deviceConfigs = {
     },
 
     hexSysexGen: function () {
-      if (arguments.length != 3)
+      if (arguments.length !== 3)
         return [] //Error
       switch (arguments.length) {
         // case 2: //MC
@@ -721,7 +721,7 @@ const deviceConfigs = {
           return;
       }
       var r = (hex >> 16) >> 1 //7 bit color
-      var g = (hex & 0xFF00 >> 8) >> 1
+      var g = ((hex & 0xFF00) >> 8) >> 1
       var b = (hex & 0xFF) >> 1
       return [240, 0, 2, 3, 1, 0, 18, 32, 0, 3, r, g, b, 247]
     }

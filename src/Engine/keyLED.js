@@ -43,10 +43,10 @@ class KeyLED
       for(var line of this.keyLED)
       {
         line = line.trim()
-        if(this.activeThread != threadID)
+        if(this.activeThread !== threadID)
           return
 
-        if(line == "")
+        if(line === "")
           continue;
         
         let command = line.split(" ");
@@ -64,7 +64,7 @@ class KeyLED
               {
                 [x, y] = [command[1], parseInt(command[2] - 1)]
               }
-              else if(parseInt(command[1]) !== NaN)
+              else if(!isNaN(parseInt(command[1])))
               {
                 [x, y] = [parseInt(command[2] - 1), parseInt(command[1] - 1)]
               }
@@ -102,7 +102,7 @@ class KeyLED
             {
               [x, y] = [command[1], parseInt(command[2] - 1)]
             }
-            else if(parseInt(command[1]) !== NaN)
+            else if(!isNaN(parseInt(command[1])))
             {
               [x, y] = [parseInt(command[2] - 1), parseInt(command[1] - 1)]
             }
@@ -124,7 +124,7 @@ class KeyLED
         break;
       }
     }
-    if(this.activeThread == threadID) //Added due to current thread on the last wait then the next thread started. This will result in the next thread to be stuck
+    if(this.activeThread === threadID) //Added due to current thread on the last wait then the next thread started. This will result in the next thread to be stuck
     {
       this.activeThread = -1
       this.removeFromActiveList()

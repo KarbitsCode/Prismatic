@@ -176,6 +176,7 @@ class App extends Component {
             case "Output":
               this.setOutputConfig({label: key, value: config})
               return true;
+            default:
           }
         }
       }

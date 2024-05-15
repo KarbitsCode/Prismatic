@@ -38,7 +38,7 @@ class AutoplayControl extends Component {
     var buttons = [];
 
     var statusText = "";
-    if (this.props.project == undefined || this.props.project.autoplay == undefined || this.props.project.autoplay.total === 0)
+    if (this.props.project === undefined || this.props.project.autoplay === undefined || this.props.project.autoplay.total === 0)
       return null;
     switch (this.props.project.autoplay.status) {
       case "PLAYING":
@@ -62,6 +62,7 @@ class AutoplayControl extends Component {
       case "STOPPED":
         buttons.push(playButton);
         break;
+      default:
     }
     return (
       <div>

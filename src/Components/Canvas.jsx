@@ -68,7 +68,7 @@ class Canvas extends Component {
     if(this.props.inputConfig.noteToXY !== undefined)
     { 
       var xy = this.props.inputConfig.noteToXY(note)
-      if(xy == undefined) return
+      if(xy === undefined) return
       [x, y] = xy
     }
     else
@@ -81,23 +81,24 @@ class Canvas extends Component {
       switch (event >> 4) {
         case 9: //Note On
         case 11: //Control Change
-          if (velocity != 0) {
+          if (velocity !== 0) {
             //Fall back to Note Off
             this.keyOn(x, y, this.props.inputConfig);
-            break;
           }
+          break;
         case 8: //Note Off
           this.keyOff(x, y, this.props.inputConfig);
           break;
+        default:
       }
     }
   };
 
   keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, sound = true, led = true) => {
     const currentKeyPressIndex = this.currentKeyPress.indexOf([x, y]);
-    if (currentKeyPressIndex == -1) {
+    if (currentKeyPressIndex === -1) {
       this.currentKeyPress.push([x, y]) // 2nd parameter means remove one item only
-      if(this.autoplay != null && this.autoplay.state == "PAUSED")
+      if(this.autoplay !== null && this.autoplay.state === "PAUSED")
       {
         
       }
@@ -181,7 +182,7 @@ class Canvas extends Component {
           console.log(`Play sound ${this.currentChain} ${canvas_x}`)
           if (this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][1] !== undefined) {
             if (
-              this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][1][0] == "0" // Inf Loop
+              this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][1][0] === "0" // Inf Loop
             ) {
               this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][0].endLoop();
             }
@@ -196,7 +197,7 @@ class Canvas extends Component {
         }
 
         //Update History
-        if (this.keypressHistory[canvas_x] != undefined && this.keypressHistory[canvas_x][canvas_y] != undefined) 
+        if (this.keypressHistory[canvas_x] !== undefined && this.keypressHistory[canvas_x][canvas_y] !== undefined) 
           this.keypressHistory[canvas_x][canvas_y]++;
       }
       else
@@ -227,7 +228,7 @@ class Canvas extends Component {
   getCanvasPosition(x, y) {
     var [canvas_x, canvas_y] = [undefined, undefined];
     if (x === "l") {
-      if (this.props.layoutConfig.lKey == undefined) return;
+      if (this.props.layoutConfig.lKey === undefined) return;
       [canvas_x, canvas_y] = this.props.layoutConfig.lKey;
     } else if (x === "mc") {
       if (this.props.layoutConfig.mcTable === undefined || this.props.layoutConfig.mcTable[y] == null) return;
@@ -278,7 +279,7 @@ class Canvas extends Component {
   {
     var [output_x, output_y] = [undefined, undefined];
     if (x === "l") {
-      if (this.props.outputConfig.lKey == undefined) return;
+      if (this.props.outputConfig.lKey === undefined) return;
       [output_x, output_y] = this.props.outputConfig.lKey;
     } else if (x === "mc") {
       if (this.props.outputConfig.mcTable === undefined || this.props.outputConfig.mcTable[y] == null) return
@@ -344,6 +345,7 @@ class Canvas extends Component {
       case "HEX":
         this.sendSysex(this.props.outputConfig.hexSysexGen(note, rawPalette[value]));
         break;
+      default:
     }
   }
 
@@ -393,6 +395,7 @@ class Canvas extends Component {
             newArray.push(array1[i] - array2[i]);
           }
           return newArray;
+        default:
       }
     }
   };
