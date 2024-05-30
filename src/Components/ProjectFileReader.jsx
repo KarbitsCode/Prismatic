@@ -4,14 +4,18 @@ class ProjectFileReader extends Component {
   render() {
     return (
       <React.Fragment>
-        <input type="file" id="projectFilePicker" name="projectFile" accept=".zip" onChange={this.onFileChange}/>
+        <input type="file" id="projectFilePicker" name="projectFile" accept=".zip" onChange={this.onFileChange} onClick={this.onClickButton}/>
       </React.Fragment>
     );
   }
 
+  onClickButton = event => {
+    event.target.value = ""
+  }
+
   onFileChange = event => { 
     this.props.loadProjectFile(event.target.files[0]);
-  };
+  }
 }
 
 export default ProjectFileReader;
