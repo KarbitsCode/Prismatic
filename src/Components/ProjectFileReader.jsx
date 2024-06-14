@@ -18,8 +18,17 @@ class ProjectFileReader extends Component {
   }
 
   onFileChange = event => {
-    this.setState({lastFileSelected: event.target.files[0].name});
-    this.props.loadProjectFile(event.target.files[0]);
+    const fileSelected = event.target.files[0];
+    let fileSelectedName = fileSelected.name;
+    let fileSelectedTextSize = 12;
+    if (fileSelected.name.length >= 30) {
+      if (fileSelected.name.slice(0, -4) === fileSelected.name.slice(0, -4).toUpperCase()) {
+        fileSelectedTextSize = fileSelectedTextSize - 4;
+      }
+      fileSelectedName = fileSelected.name.substr(0, fileSelectedTextSize) + "..." + fileSelected.name.substr(fileSelected.name.length - fileSelectedTextSize, fileSelected.name.length);
+    }
+    this.setState({lastFileSelected: fileSelectedName});
+    this.props.loadProjectFile(fileSelected);
   }
 
   render() {
