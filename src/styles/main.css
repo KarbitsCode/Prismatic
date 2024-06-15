@@ -40,6 +40,18 @@
   border-radius: 30px;
 }
 
+.button {
+  background-color: buttonface;
+}
+
+.button:hover {
+  background-color: #e6e6e6;
+}
+
+.button:active {
+  background-color: hsl(0,0%,80%);
+}
+
 .button-row {
   justify-content: center;
   justify-self: center;
