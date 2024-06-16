@@ -41,7 +41,7 @@
 }
 
 .button {
-  background-color: buttonface;
+  background-color: white;
 }
 
 .button:hover {
@@ -49,7 +49,7 @@
 }
 
 .button:active {
-  background-color: hsl(0,0%,80%);
+  background-color: rgb(153, 153, 153);
 }
 
 .button-row {
