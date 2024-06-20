@@ -221,7 +221,7 @@ class Canvas extends Component {
   };
 
   setHighlight = (x, y, color) => {
-    console.log(`Set Color ${x} ${y} ${color}`)
+    // console.log(`Set Color ${x} ${y} ${color}`)
     this.setHighlightCanvas(x, y, color);
   };
 
@@ -244,8 +244,13 @@ class Canvas extends Component {
   };
 
   setColorCanvas(x, y, color) {
-    var [canvas_x, canvas_y] = this.getCanvasPosition(x, y);
-   
+    var [canvas_x, canvas_y] = [undefined, undefined];
+    try {
+      [canvas_x, canvas_y] = this.getCanvasPosition(x, y);
+    } catch (e) {
+      // console.error(e);
+    }
+
     try {
       if (/^#[0-9A-F]{6}$/i.test(color)) {
         //Check if it is a Hex String
@@ -254,13 +259,18 @@ class Canvas extends Component {
         this.state.colormap[canvas_x][canvas_y] = palette[color];
       }
     } catch (e) {
-      console.error(e);
-      console.error([x, y, color, canvas_x, canvas_y]);
+      // console.error(e);
+      // console.error([x, y, color, canvas_x, canvas_y]);
     }
   }
 
   setHighlightCanvas(x, y, color = null) {
-    var [canvas_x, canvas_y] = this.getCanvasPosition(x, y);
+    var [canvas_x, canvas_y] = [undefined, undefined];
+    try {
+      [canvas_x, canvas_y] = this.getCanvasPosition(x, y);
+    } catch (e) {
+      // console.error(e);
+    }
 
     try {
       if (/^#[0-9A-F]{6}$/i.test(color)) {
@@ -270,8 +280,8 @@ class Canvas extends Component {
         this.state.highlightmap[canvas_x][canvas_y] = palette[color];
       }
     } catch (e) {
-      console.error(e);
-      console.error([x, y, color, canvas_x, canvas_y]);
+      // console.error(e);
+      // console.error([x, y, color, canvas_x, canvas_y]);
     }
   }
 
