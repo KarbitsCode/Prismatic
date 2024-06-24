@@ -137,8 +137,8 @@ class AutoPlay {
   {
     for(var progress = this.progress; progress >= 0; progress--)
     {
-      let command = this.autoplay[this.progress].split(" ");
-      if(command === "c" || command === "chain")
+      let command = this.autoplay[progress].split(" ");
+      if(command[0] === "c" || command[0] === "chain") //they might forget that command is an array
       {
         this.canvas.chainChange(parseInt(command[1]) - 1);
         this.currentChain = parseInt(command[1]) - 1;
