@@ -79,10 +79,11 @@ class App extends Component {
     }
     if(projectPack == null)
       return
+    this.setState({projectFile: undefined});
     this.setState({statusMessage: "Loading Unipack"});
     new ProjectFile(projectPack, this.canvas)
       .then((projectFile) => {
-        this.setState({ projectFile: projectFile });
+        this.setState({projectFile: projectFile});
         console.log(projectFile);
         this.setState({statusMessage: `Current Project: ${this.state.projectFile.info["title"]} by ${this.state.projectFile.info["producerName"]}`});
       })
