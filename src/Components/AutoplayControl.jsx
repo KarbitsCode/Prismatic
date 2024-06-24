@@ -71,13 +71,25 @@ class AutoplayControl extends Component {
       <div>
         <text>{"Autoplay" + statusText}</text>
         <div />
-        <input type="checkbox" checked={this.props.project.autoplay.led} onChange={() => {console.log(`LED ${!this.props.project.autoplay.led}`);this.props.project.autoplay.led = !this.props.project.autoplay.led}}/>LED
-        <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={() => {console.log(`Highlight ${!this.props.project.autoplay.highlight}`);this.props.project.autoplay.highlight = !this.props.project.autoplay.highlight}}/>Highlight
+        <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/>LED
+        <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={this.highlightCheckbox}/>Highlight
         <div />
         {buttons}
       </div>
     );
   }
+
+  LEDCheckbox = () => {
+    this.props.project.autoplay.led = !this.props.project.autoplay.led;
+    if (this.props.project.autoplay.led) var state = "On"; else var state = "Off";
+    console.log(`LED ${state}`);
+  };
+
+  highlightCheckbox = () => {
+    this.props.project.autoplay.highlight = !this.props.project.autoplay.highlight;
+    if (this.props.project.autoplay.highlight) var state = "On"; else var state = "Off";
+    console.log(`Highlight ${state}`);
+  };
 
   playAutoplay = () => {
     if (this.props.project.autoplay !== undefined) {
