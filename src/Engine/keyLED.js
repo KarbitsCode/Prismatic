@@ -9,7 +9,7 @@ class KeyLED
   nextID = 0
   canvas = undefined
   currentOn=[]
-  lastEventTime = undefined;
+  lastEventTime = undefined
   activeList = undefined //Global, refence to the activeKeyLED object in the projectFile
 
   constructor(text, repeat, canvas, id, activeList)
@@ -108,7 +108,7 @@ class KeyLED
             }
 
             this.canvas.setColor(x, y, 0)
-            var id = x + "-" + y
+            id = x + "-" + y
             delete this.currentOn[id]
             break;
           case 'd': //wait

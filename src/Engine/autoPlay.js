@@ -98,6 +98,7 @@ class AutoPlay {
         default:
       }
     }
+    console.log("Autoplay End");
     this.stop();
   }
 
@@ -109,7 +110,6 @@ class AutoPlay {
     this.status = "STOPPED"
     this.progress = 0
     this.canvas.autoplay = null;
-    console.log("Autoplay End");
   }
 
   backward()
@@ -138,7 +138,7 @@ class AutoPlay {
     for(var progress = this.progress; progress >= 0; progress--)
     {
       let command = this.autoplay[progress].split(" ");
-      if(command[0] === "c" || command[0] === "chain") //they might forget that command is an array
+      if(command[0] === "c" || command[0] === "chain")
       {
         this.canvas.chainChange(parseInt(command[1]) - 1);
         this.currentChain = parseInt(command[1]) - 1;

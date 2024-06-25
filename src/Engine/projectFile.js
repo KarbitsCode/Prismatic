@@ -127,9 +127,10 @@ class ProjectFile {
         //   console.warn("Unknown keyLED file name: " + name);
         // }
         }
-        catch
+        catch(e)
         {
           console.warn("Unable to parse file name - " + name.split("/").pop())
+          console.warn("Reason - " + e)
         }
       }
 
@@ -148,9 +149,10 @@ class ProjectFile {
           console.log([chain, x, y, filename])
           this.keySound[chain][x][y].push([this.soundFiles[filename], command.slice(4)]);
         }
-        catch
+        catch(e)
         {
           console.warn("Unable to parse line - " + line)
+          console.warn("Reason - " + e)
         }
       }
 
@@ -162,6 +164,7 @@ class ProjectFile {
     }
     catch(e)
     {
+      console.error(e)
       reject(e)
     }
     });
