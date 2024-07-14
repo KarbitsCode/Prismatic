@@ -447,7 +447,7 @@ class Canvas extends Component {
             </div>
           );
         })}
-        {/* <button onClick={this.playAutoplay}>Auto Play</button> */}
+        {/* <button type="button" onClick={this.playAutoplay}>Auto Play</button> */}
       </div>
     );
   }
