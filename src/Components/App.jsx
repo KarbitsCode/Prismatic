@@ -201,7 +201,7 @@ class App extends Component {
             <text className="sidebarItem">
               {this.state.statusMessage}
             </text>
-            <br></br>
+            <div />
             <ProjectFileReader
               loadProjectFile={this.loadProjectFile}
             ></ProjectFileReader>
@@ -282,7 +282,7 @@ class App extends Component {
               onChange={this.setOutputConfig.bind(this)}
             />
             <div />
-            <AutoplayControl project={this.state.projectFile} canvas={this.canvas} layoutConfig={this.state.layoutConfig}/>
+            <AutoplayControl project={this.state.projectFile} canvas={this.canvas} layoutConfig={this.state.layoutConfig} />
           </div>
             <Canvas
               ref={this.canvas}
