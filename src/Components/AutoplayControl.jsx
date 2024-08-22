@@ -6,9 +6,27 @@ class AutoplayControl extends Component {
     setInterval(() => {
       if (this.props.project !== undefined && this.props.project.autoplay !== undefined) {
         this.forceUpdate();
-      }
+      };
     }, 1000 / 60);
-  }
+    this.slider = React.createRef();
+    this.state = {
+      sliderClicked: false
+    };
+  };
+
+  componentDidMount() {
+    const sliderEventMountLoop = setInterval(() => {
+      if (this.slider.current) {
+        this.slider.current.addEventListener("mousedown", (event) => {
+          this.setState({ sliderClicked: true });
+        });
+        this.slider.current.addEventListener("mouseup", (event) => {
+          this.setState({ sliderClicked: false });
+        });
+        clearInterval(sliderEventMountLoop);
+      };
+    }, 1000);
+  };
 
   render() {
     var playButton = (
@@ -44,8 +62,10 @@ class AutoplayControl extends Component {
     var buttons = [];
 
     var statusText = "";
-    if (this.props.project === undefined || this.props.project.autoplay === undefined || this.props.project.autoplay.total === 0)
+    if (this.props.project === undefined || this.props.project.autoplay === undefined || this.props.project.autoplay.total === 0) {
       return null;
+    };
+
     switch (this.props.project.autoplay.status) {
       case "PLAYING":
         statusText = ` - ${(
@@ -55,6 +75,9 @@ class AutoplayControl extends Component {
           this.props.project.autoplay.total
         })`;
         buttons.push(pauseButton);
+        if (!this.state.sliderClicked) {
+          this.slider.current.value = this.props.project.autoplay.progress;
+        };
         break;
       case "PAUSED":
         statusText = ` - ${(
@@ -69,12 +92,13 @@ class AutoplayControl extends Component {
         buttons.push(playButton);
         break;
       default:
-    }
+    };
+
     return (
       <div>
         <text>{"Autoplay" + statusText}</text>
         <div />
-        <input type="range" min="0" max={this.props.project.autoplay.total} value={this.props.project.autoplay.progress}/>
+        <input type="range" min="0" max={this.props.project.autoplay.total} ref={this.slider} onChange={this.sliderChanged}/>
         <div />
         <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/><span style={{marginLeft: "2px", marginRight: "5px"}}>LED</span>
         <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={this.highlightCheckbox}/><span style={{marginLeft: "2px", marginRight: "5px"}}>Highlight</span>
@@ -82,7 +106,12 @@ class AutoplayControl extends Component {
         {buttons}
       </div>
     );
-  }
+  };
+
+  sliderChanged = () => {
+    this.props.project.autoplay.progress = this.slider.current.value;
+    this.props.project.autoplay.syncChain();
+  };
 
   LEDCheckbox = () => {
     this.props.project.autoplay.led = !this.props.project.autoplay.led;
@@ -98,6 +127,7 @@ class AutoplayControl extends Component {
 
   playAutoplay = () => {
     if (this.props.project.autoplay !== undefined) {
+      this.props.project.autoplay.progress = 0;
       this.props.project.autoplay.play(
         // this.props.canvas.current,
         // this.props.layoutConfig.canvas_origin
@@ -105,7 +135,7 @@ class AutoplayControl extends Component {
       console.log("Autoplay Started");
     } else {
       alert("No project loaded!");
-    }
+    };
   };
 
   stopAutoplay = () => {
@@ -115,7 +145,7 @@ class AutoplayControl extends Component {
       console.log("Autoplay Stopped");
     } else {
       alert("No project loaded!");
-    }
+    };
   };
 
   pauseAutoplay = () => {
@@ -125,7 +155,7 @@ class AutoplayControl extends Component {
       console.log("Autoplay Paused");
     } else {
       alert("No project loaded!");
-    }
+    };
   };
 }
 
