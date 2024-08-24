@@ -130,7 +130,8 @@ class AutoPlay {
 
   seek(index)
   {
-
+    this.progress = index;
+    this.syncChain();
   }
 
   syncChain()
