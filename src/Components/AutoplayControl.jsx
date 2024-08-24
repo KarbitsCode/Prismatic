@@ -17,12 +17,13 @@ class AutoplayControl extends Component {
   componentDidMount() {
     const sliderEventMountLoop = setInterval(() => {
       if (this.slider.current) {
-        this.slider.current.addEventListener("mousedown", (event) => {
+        this.slider.current.addEventListener("mousedown", () => {
           this.setState({ sliderClicked: true });
         });
-        this.slider.current.addEventListener("mouseup", (event) => {
+        this.slider.current.addEventListener("mouseup", () => {
           this.setState({ sliderClicked: false });
         });
+        this.slider.current.value = 0;
         clearInterval(sliderEventMountLoop);
       };
     }, 1000);
@@ -109,25 +110,27 @@ class AutoplayControl extends Component {
   };
 
   sliderChanged = () => {
-    this.props.project.autoplay.progress = this.slider.current.value;
-    this.props.project.autoplay.syncChain();
+    if (this.props.project.autoplay.status !== "STOPPED") {
+      this.props.project.autoplay.seek(this.slider.current.value);
+      console.log(`Seeking to ${this.slider.current.value}`);
+    };
   };
 
   LEDCheckbox = () => {
     this.props.project.autoplay.led = !this.props.project.autoplay.led;
-    if (this.props.project.autoplay.led) var state = "On"; else var state = "Off";
-    console.log(`LED ${state}`);
+    console.log(`LED ${this.props.project.autoplay.led ? "On" : "Off"}`);
   };
 
   highlightCheckbox = () => {
     this.props.project.autoplay.highlight = !this.props.project.autoplay.highlight;
-    if (this.props.project.autoplay.highlight) var state = "On"; else var state = "Off";
-    console.log(`Highlight ${state}`);
+    console.log(`Highlight ${this.props.project.autoplay.highlight ? "On" : "Off"}`);
   };
 
   playAutoplay = () => {
     if (this.props.project.autoplay !== undefined) {
-      this.props.project.autoplay.progress = 0;
+      if (this.props.project.autoplay.status === "STOPPED") {
+        this.props.project.autoplay.stop()
+      };
       this.props.project.autoplay.play(
         // this.props.canvas.current,
         // this.props.layoutConfig.canvas_origin
