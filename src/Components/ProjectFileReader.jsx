@@ -6,30 +6,30 @@ class ProjectFileReader extends Component {
     this.fileRef = React.createRef();
     this.state = {
       lastFileSelected: "No file chosen"
-    }
-  }
+    };
+  };
 
-  onButtonClick = event => {
+  onButtonClick = (event) => {
     this.fileRef.current.click();
-  }
+  };
 
-  onFileClick = event => {
+  onFileClick = (event) => {
     event.target.value = "";
-  }
+  };
 
-  onFileChange = event => {
+  onFileChange = (event) => {
     const fileSelected = event.target.files[0];
     let fileSelectedName = fileSelected.name;
-    let fileSelectedTextSize = 12;
+    let fileSelectedTextSize = 10;
     if (fileSelectedName.length >= 30) {
       if (fileSelectedName.substring(0, fileSelectedName.length - 4) === fileSelectedName.slice(0, -4).toUpperCase()) {
-        fileSelectedTextSize = fileSelectedTextSize - 4;
-      }
+        fileSelectedTextSize = fileSelectedTextSize - 2;
+      };
       fileSelectedName = `${fileSelectedName.substr(0, fileSelectedTextSize)}...${fileSelectedName.substr(fileSelectedName.length - fileSelectedTextSize, fileSelectedName.length)}`;
-    }
+    };
     this.setState({lastFileSelected: fileSelectedName});
     this.props.loadProjectFile(fileSelected);
-  }
+  };
 
   render() {
     return (
@@ -39,7 +39,7 @@ class ProjectFileReader extends Component {
         <span style={{fontSize: "14px", marginLeft: "5px"}}>{this.state.lastFileSelected}</span>
       </React.Fragment>
     );
-  }
+  };
 }
 
 export default ProjectFileReader;
