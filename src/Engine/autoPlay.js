@@ -114,18 +114,14 @@ class AutoPlay {
 
   backward()
   {
-    if(this.status === "PAUSED")
-    {
-      
-    }
+    this.progress -= 4;
+    this.syncChain();
   }
 
   forward()
   {
-    if(this.status === "PAUSED")
-    {
-
-    }
+    this.progress += 4;
+    this.syncChain();
   }
 
   seek(index)
