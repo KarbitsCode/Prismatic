@@ -99,7 +99,11 @@ class AutoplayControl extends Component {
       <div>
         <text>{"Autoplay" + statusText}</text>
         <div />
-        <input type="range" min="0" max={this.props.project.autoplay.total} ref={this.slider} onChange={this.sliderChanged}/>
+        <div style={{display: "inline-flex"}}>
+          <button type="button" style={{width: "30px", backgroundColor: "gray", color: "white"}} onClick={this.backwardClicked}>&#60;</button>
+          <input type="range" min="0" max={this.props.project.autoplay.total} ref={this.slider} onChange={this.sliderChanged}/>
+          <button type="button" style={{width: "30px", backgroundColor: "gray", color: "white"}} onClick={this.forwardClicked}>&#62;</button>
+        </div>
         <div />
         <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/><span style={{marginLeft: "2px", marginRight: "5px"}}>LED</span>
         <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={this.highlightCheckbox}/><span style={{marginLeft: "2px", marginRight: "5px"}}>Highlight</span>
@@ -107,6 +111,20 @@ class AutoplayControl extends Component {
         {buttons}
       </div>
     );
+  };
+
+  backwardClicked = () => {
+    if (this.props.project.autoplay.status !== "STOPPED") {
+      this.props.project.autoplay.backward();
+      console.log("Seeked backward by 4");
+    };
+  };
+
+  forwardClicked = () => {
+    if (this.props.project.autoplay.status !== "STOPPED") {
+      this.props.project.autoplay.forward();
+      console.log("Seeked forward by 4");
+    };
   };
 
   sliderChanged = () => {
