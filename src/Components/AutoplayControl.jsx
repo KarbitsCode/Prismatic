@@ -100,9 +100,9 @@ class AutoplayControl extends Component {
         <text>{"Autoplay" + statusText}</text>
         <div />
         <div style={{display: "inline-flex"}}>
-          <button type="button" style={{width: "30px", backgroundColor: "gray", color: "white"}} onClick={this.backwardClicked}>&#60;</button>
+          <button type="button" style={{width: "20px", backgroundColor: "gray", color: "white"}} onClick={this.backwardClicked}>&#60;</button>
           <input type="range" min="0" max={this.props.project.autoplay.total} ref={this.slider} onChange={this.sliderChanged}/>
-          <button type="button" style={{width: "30px", backgroundColor: "gray", color: "white"}} onClick={this.forwardClicked}>&#62;</button>
+          <button type="button" style={{width: "20px", backgroundColor: "gray", color: "white"}} onClick={this.forwardClicked}>&#62;</button>
         </div>
         <div />
         <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/><span style={{marginLeft: "2px", marginRight: "5px"}}>LED</span>
@@ -114,22 +114,23 @@ class AutoplayControl extends Component {
   };
 
   backwardClicked = () => {
-    if (this.props.project.autoplay.status !== "STOPPED") {
-      this.props.project.autoplay.backward();
-      console.log("Seeked backward by 4");
+    let skip = 4;
+    this.slider.current.value = Number(this.slider.current.value) - skip;
+    if (this.props.project.autoplay.backward(skip)) {
+	  console.log(`Seeked backward by ${skip}`);
     };
   };
 
   forwardClicked = () => {
-    if (this.props.project.autoplay.status !== "STOPPED") {
-      this.props.project.autoplay.forward();
-      console.log("Seeked forward by 4");
+    let skip = 4;
+    this.slider.current.value = Number(this.slider.current.value) + skip;
+    if (this.props.project.autoplay.forward(skip)) {
+      console.log(`Seeked forward by ${skip}`);
     };
   };
 
   sliderChanged = () => {
-    if (this.props.project.autoplay.status !== "STOPPED") {
-      this.props.project.autoplay.seek(this.slider.current.value);
+    if (this.props.project.autoplay.seek(this.slider.current.value)) {
       console.log(`Seeking to ${this.slider.current.value}`);
     };
   };

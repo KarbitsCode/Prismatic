@@ -112,29 +112,56 @@ class AutoPlay {
     this.canvas.autoplay = null;
   }
 
-  backward()
+  backward(index)
   {
-    this.progress -= 4;
-    this.syncChain();
+    if (this.status !== "STOPPED")
+    {
+      if (this.progress !== 0)
+      {
+        this.progress = Math.max(Number(this.progress) - index, 0);
+        this.syncChain();
+        return true;
+      }
+    }
   }
 
-  forward()
+  forward(index)
   {
-    this.progress += 4;
-    this.syncChain();
+    if (this.status !== "STOPPED")
+    {
+      if (this.progress !== this.total)
+      {
+        this.progress = Math.min(Number(this.progress) + index, this.total);
+        this.syncChain();
+        return true;
+      }
+    }
   }
 
   seek(index)
   {
-    this.progress = index;
-    this.syncChain();
+    if (this.status !== "STOPPED")
+    {
+      this.progress = index;
+      this.syncChain();
+      return true;
+    }
   }
 
   syncChain()
   {
     for(var progress = this.progress; progress >= 0; progress--)
     {
-      let command = this.autoplay[progress].split(" ");
+      let command;
+      try
+      {
+        command = this.autoplay[progress].split(" ");
+      }
+      catch(e)
+      {
+        // console.error(e);
+        return;
+      }
       if(command[0] === "c" || command[0] === "chain")
       {
         this.canvas.chainChange(parseInt(command[1]) - 1);
@@ -144,6 +171,7 @@ class AutoPlay {
     }
     this.canvas.chainChange(0);
     this.currentChain = 0;
+    return;
   }
 
   wait(ms) {
