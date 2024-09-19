@@ -17,11 +17,15 @@ class AutoplayControl extends Component {
   componentDidMount() {
     const sliderEventMountLoop = setInterval(() => {
       if (this.slider.current) {
-        this.slider.current.addEventListener("mousedown", () => {
-          this.setState({ sliderClicked: true });
+        ["mousedown", "touchstart"].forEach((event) => {
+          this.slider.current.addEventListener(event, () => {
+            this.setState({ sliderClicked: true });
+          });
         });
-        this.slider.current.addEventListener("mouseup", () => {
-          this.setState({ sliderClicked: false });
+        ["mouseup", "touchend"].forEach((event) => {
+          this.slider.current.addEventListener(event, () => {
+            this.setState({ sliderClicked: false });
+          });
         });
         this.slider.current.value = 0;
         clearInterval(sliderEventMountLoop);
@@ -114,7 +118,7 @@ class AutoplayControl extends Component {
   };
 
   backwardClicked = () => {
-    let skip = 4;
+    var skip = 4;
     this.slider.current.value = Number(this.slider.current.value) - skip;
     if (this.props.project.autoplay.backward(skip)) {
 	  console.log(`Seeked backward by ${skip}`);
@@ -122,7 +126,7 @@ class AutoplayControl extends Component {
   };
 
   forwardClicked = () => {
-    let skip = 4;
+    var skip = 4;
     this.slider.current.value = Number(this.slider.current.value) + skip;
     if (this.props.project.autoplay.forward(skip)) {
       console.log(`Seeked forward by ${skip}`);
