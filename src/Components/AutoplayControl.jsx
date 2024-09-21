@@ -119,17 +119,23 @@ class AutoplayControl extends Component {
 
   backwardClicked = () => {
     var skip = 4;
-    this.slider.current.value = Number(this.slider.current.value) - skip;
     if (this.props.project.autoplay.backward(skip)) {
-	  console.log(`Seeked backward by ${skip}`);
+      this.slider.current.value = Number(this.slider.current.value) - skip;
+      console.log(`Seeked backward by ${skip}`);
+      console.log(`Seeking to ${this.slider.current.value}`);
+    } else {
+      this.slider.current.value = Number(this.slider.current.value) - this.props.project.autoplay.total * 0.5;
     };
   };
 
   forwardClicked = () => {
     var skip = 4;
-    this.slider.current.value = Number(this.slider.current.value) + skip;
     if (this.props.project.autoplay.forward(skip)) {
+      this.slider.current.value = Number(this.slider.current.value) + skip;
       console.log(`Seeked forward by ${skip}`);
+      console.log(`Seeking to ${this.slider.current.value}`);
+    } else {
+      this.slider.current.value = Number(this.slider.current.value) + this.props.project.autoplay.total * 0.5;
     };
   };
 
@@ -158,7 +164,6 @@ class AutoplayControl extends Component {
         // this.props.canvas.current,
         // this.props.layoutConfig.canvas_origin
       );
-      console.log("Autoplay Started");
     } else {
       alert("No project loaded!");
     };
@@ -168,7 +173,6 @@ class AutoplayControl extends Component {
     if (this.props.project.autoplay !== undefined) {
       this.props.project.autoplay.stop();
       this.props.canvas.current.initlalizeCanvas();
-      console.log("Autoplay Stopped");
     } else {
       alert("No project loaded!");
     };
@@ -178,7 +182,6 @@ class AutoplayControl extends Component {
     if (this.props.project.autoplay !== undefined) {
       this.props.project.autoplay.pause();
       this.props.project.stopAll();
-      console.log("Autoplay Paused");
     } else {
       alert("No project loaded!");
     };
