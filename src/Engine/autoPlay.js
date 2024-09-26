@@ -121,7 +121,7 @@ class AutoPlay {
     {
       if (this.progress !== 0)
       {
-        if (this.seek(Math.max(Number(this.progress) - index, 0)))
+        if (this.seek(Math.max(parseInt(this.progress) - index, 0)))
         {
           return true;
         }
@@ -135,7 +135,7 @@ class AutoPlay {
     {
       if (this.progress !== this.total)
       {
-        if (this.seek(Math.min(Number(this.progress) + index, this.total)))
+        if (this.seek(Math.min(parseInt(this.progress) + index, this.total)))
         {
           return true;
         }
