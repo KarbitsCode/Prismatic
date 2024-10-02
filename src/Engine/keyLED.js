@@ -36,6 +36,7 @@ class KeyLED
     var currentLoop = 0;
     this.end = false;
     this.lastEventTime = Date.now();
+    var [x, y] = [undefined, undefined];
     // console.log("KeyLED");
     // console.timeLog("KeyOn");
     while (this.repeat === 0 || currentLoop++ < this.repeat)
@@ -93,7 +94,7 @@ class KeyLED
               break;
           case 'f': //color off
           case 'off': //color off
-            var [x, y] = [undefined, undefined];
+            [x, y] = [undefined, undefined];
             if (command[1] === "*")
             {
               command[1] = "mc";

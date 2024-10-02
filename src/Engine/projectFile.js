@@ -110,12 +110,12 @@ class ProjectFile {
         this.keySound = new Array(this.info.chain).fill(null).map(
           () => new Array(this.info.buttonX).fill(null).map(
             () => new Array(this.info.buttonY).fill(null).map(
-              () => new Array())));
+              () => new Array()))); // eslint-disable-line
    
         this.keyLED = new Array(this.info.chain).fill(null).map(
           () => new Array(this.info.buttonX).fill(null).map(
             () => new Array(this.info.buttonY).fill(null).map(
-              () => new Array())));
+              () => new Array()))); // eslint-disable-line
    
         // Load KeyLED
         for (var [name, text] of Object.entries(keyLEDFiles)) {
