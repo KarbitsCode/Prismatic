@@ -33,8 +33,12 @@ class ProjectFile {
         let keySoundFile = undefined;
         let autoplayFile = undefined;
         let keyLEDFiles = {};
+        const progressBar = document.getElementById("progressBar");
+        progressBar.removeAttribute("hidden", "");
+        progressBar.max = files.length;
+        progressBar.value = 0;
 
-      //Load info and categorize files
+        //Load info and categorize files
         for (let file of files) {
           let filename = file.name.toLowerCase();
           if (!filename.endsWith("/")) //Ignore folder
@@ -45,6 +49,7 @@ class ProjectFile {
               this.soundFiles[filename.split("/").pop()] = await file.async("blob").then(function (blob) {
                 return new keySound(blob, filename.split("/").pop());
               });
+              progressBar.value = parseInt(progressBar.value) + 1;
             }
             else {
               let text = await file.async("text").then((text) => { return text = text.split(/\r?\n/); });
@@ -75,25 +80,31 @@ class ProjectFile {
                   // alert(`This Unipad Project has ${this.info["chain"]} chains. Projects that has more than 8 chains are limited supported`);
                   // return;
                 }
+                progressBar.value = parseInt(progressBar.value) + 1;
               }
               else if (filename.endsWith("keysound")) {
                 console.log("KeySound file: " + filename);
                 keySoundFile = text;
+                progressBar.value = parseInt(progressBar.value) + 1;
               }
               else if (filename.endsWith("autoplay")) {
                 console.log("AutoPlay file: " + filename);
                 autoplayFile = text;
+                progressBar.value = parseInt(progressBar.value) + 1;
               }
               else if (filename.includes("keyled/")) {
                 console.log("KeyLED file: " + filename);
                 keyLEDFiles[filename] = text;
+                progressBar.value = parseInt(progressBar.value) + 1;
               }
               else {
                 console.log("Unknown file: " + filename);
+                progressBar.value = parseInt(progressBar.value) + 1;
               }
             }
           }
         }
+        progressBar.setAttribute("hidden", "")
    
         //Initialize 4D arraies
         this.keySound = new Array(this.info.chain).fill(null).map(
