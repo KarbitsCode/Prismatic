@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare, no-unused-vars */
 const deviceConfigs = {
   "Launchpad Pro":
   {
