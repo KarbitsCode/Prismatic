@@ -47,7 +47,7 @@ class Canvas extends Component {
     this.currentChain = 0;
   }
 
-  clearCanvas(config = this.props.layoutConfig) { // eslint-disable-next-line
+  clearCanvas(config = this.props.layoutConfig) { // eslint-disable-next-line react/no-direct-mutation-state
     this.state.colormap = new Array(config.width).fill(null).map(() => new Array(config.height).fill(palette[0])); //I write directly into state because that takes so long it will be complete by the time render is over and throw an error already. Since shouldComponentUpdate will enforce update I will give it a pass
   }
 
@@ -254,9 +254,9 @@ class Canvas extends Component {
     try {
       if (/^#[0-9A-F]{6}$/i.test(color)) {
         //Check if it is a Hex String
-        this.state.colormap[canvas_x][canvas_y] = color; // eslint-disable-line
+        this.state.colormap[canvas_x][canvas_y] = color; // eslint-disable-line react/no-direct-mutation-state
       } else {
-        this.state.colormap[canvas_x][canvas_y] = palette[color]; // eslint-disable-line
+        this.state.colormap[canvas_x][canvas_y] = palette[color]; // eslint-disable-line react/no-direct-mutation-state
       }
     } catch (e) {
       // console.error(e);
@@ -275,9 +275,9 @@ class Canvas extends Component {
     try {
       if (/^#[0-9A-F]{6}$/i.test(color)) {
         //Check if it is a Hex String
-        this.state.highlightmap[canvas_x][canvas_y] = color; // eslint-disable-line
+        this.state.highlightmap[canvas_x][canvas_y] = color; // eslint-disable-line react/no-direct-mutation-state
       } else {
-        this.state.highlightmap[canvas_x][canvas_y] = palette[color]; // eslint-disable-line
+        this.state.highlightmap[canvas_x][canvas_y] = palette[color]; // eslint-disable-line react/no-direct-mutation-state
       }
     } catch (e) {
       // console.error(e);
@@ -400,7 +400,7 @@ class Canvas extends Component {
             newArray.push(array1[i] + array2[i]);
           }
           return newArray;
-        case "-": // eslint-disable-next-line
+        case "-": // eslint-disable-next-line no-redeclare
           for (var i = 0; i < array1.length; i++) {
             newArray.push(array1[i] - array2[i]);
           }

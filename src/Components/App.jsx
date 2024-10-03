@@ -10,7 +10,7 @@ import WebMidi from "webmidi";
 import preval from 'preval.macro'
 
 class App extends Component {
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
@@ -68,7 +68,7 @@ class App extends Component {
       {var file = r.blob();
         console.log(file);
         this.loadProjectFile(file);
-      }).bind(this)); // eslint-disable-line
+      }).bind(this)); // eslint-disable-line no-extra-bind
   };
 
   loadProjectFile = (projectPack) => {
@@ -360,7 +360,7 @@ class App extends Component {
         }
       }
       if(this.state.outputConfig.outputInfoMessage !== undefined)
-      { // eslint-disable-next-line
+      { // eslint-disable-next-line no-redeclare
         for(var i in this.state.outputConfig.infoMessage)
         {
           alert(this.state.outputConfig.outputInfoMessage[i])
