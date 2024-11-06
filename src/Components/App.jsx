@@ -18,7 +18,7 @@ class App extends Component {
   componentDidMount()
   {
     console.log("%c203 | Prismatic \nBuild " + preval`module.exports = new Date().toLocaleString("en-US");`, "color: cyan; font-size: 24px;")
-    setTimeout(() => {(document.body.scrollHeight > document.body.clientHeight || document.body.scrollWidth > document.body.clientWidth) ? document.body.style.zoom = "75%" : document.body.style.zoom = "100%"}, 0)
+    setTimeout(() => {((document.body.scrollHeight > document.body.clientHeight || document.body.scrollWidth > document.body.clientWidth) ? ((typeof window !== "undefined" && ((typeof window.process === "object" && window.process.type === "renderer") || navigator.userAgent.includes("Electron") || (typeof process !== "undefined" && process.versions && process.versions.electron))) ? document.body.style.zoom = "77%" : document.body.style.zoom = "75%") : document.body.style.zoom = "100%")}, 0)
     this.loadUserConfigPerfences()
     setTimeout((this.initlization).bind(this), 0) //Hacky way to get initlization done after first render
   }
