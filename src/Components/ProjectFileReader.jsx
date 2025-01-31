@@ -37,7 +37,7 @@ class ProjectFileReader extends Component {
         <input type="file" id="projectFilePicker" name="projectFile" accept=".zip" hidden onChange={this.onFileChange} onClick={this.onFileClick} ref={this.fileRef}></input>
         <button type="button" className="button" style={{display: "inline", height: "17px", width: "84px"}} onClick={this.onButtonClick}>Choose File</button>
         <span style={{fontSize: "14px", marginLeft: "5px"}}>{this.state.lastFileSelected}</span><br></br>
-        <input type="range" id="progressBar" hidden disabled></input>
+        <input type="range" id="progressBar" disabled hidden></input>
       </React.Fragment>
     );
   };
