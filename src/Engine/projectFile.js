@@ -26,15 +26,15 @@ class ProjectFile {
           return Object.values(zip.files);
         }, function(e) {
           reject("Failed to extract selected file");
-          console.log(e);
+          console.error(e);
           return;
         });
         let projectRoot = undefined;
         let keySoundFile = undefined;
         let autoplayFile = undefined;
         let keyLEDFiles = {};
-        const progressBar = document.getElementById("progressBar");
-        progressBar.removeAttribute("hidden", "");
+        let progressBar = document.getElementById("progressBar");
+        progressBar.removeAttribute("hidden");
         progressBar.max = files.length;
         progressBar.value = 0;
 
@@ -99,7 +99,9 @@ class ProjectFile {
           }
           progressBar.value = parseInt(progressBar.value) + 1;
         }
-        progressBar.setAttribute("hidden", "")
+        progressBar.setAttribute("hidden", "");
+        progressBar.removeAttribute("max");
+        progressBar.value = 0;
    
         //Initialize 4D arraies
         this.keySound = new Array(this.info.chain).fill(null).map(
