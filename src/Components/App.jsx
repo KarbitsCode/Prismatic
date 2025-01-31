@@ -9,6 +9,7 @@ import AutoplayControl from "./AutoplayControl";
 import WebMidi from "webmidi";
 import preval from "preval.macro";
 import isElectron from "is-electron";
+import fetchProgress from "fetch-progress";
 
 class App extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -75,23 +76,38 @@ class App extends Component {
   canvas = React.createRef();
 
   downloadProjectFile = (url) => {
-    alert("Download Unipack from " + url)
-    fetch("https://cors-anywhere.herokuapp.com/" + url).then
-    ((r => 
+    this.setState({statusMessage: "Downloading Unipack"});
+    console.log("Downloading Unipack from " + url);
+    alert("Downloading Unipack from " + url);
+    let progressBar = document.getElementById("progressBar");
+    progressBar.removeAttribute("hidden");
+    progressBar.max = 100;
+    progressBar.value = 0;
+    fetch("https://cors-anywhere.herokuapp.com/" + url)
+    .then(fetchProgress({
+      onProgress(progress) {
+        console.log(progress);
+        progressBar.value = progress.percentage;
+      }}))
+    .then((r => 
       {var file = r.blob();
         console.log(file);
         this.loadProjectFile(file);
-      }).bind(this)); // eslint-disable-line no-extra-bind
+      }))
+    .catch((e =>
+      {console.error(e);
+        this.loadProjectFile(e);
+      }));
   };
 
   loadProjectFile = (projectPack) => {
     this.canvas.current.initlalizeCanvas();
-    if(this.state.projectFile != null && this.state.projectFile.autoplay != null)
+    if (this.state.projectFile != null && this.state.projectFile.autoplay != null)
     {
       console.log("Clean existing project");
       this.state.projectFile.autoplay.stop();
     }
-    if(projectPack == null)
+    if (projectPack == null)
       return
     this.setState({projectFile: undefined});
     this.setState({statusMessage: "Loading Unipack"});
@@ -106,10 +122,14 @@ class App extends Component {
         alert("Error Loading Unipack: " + projectPack.name)
         console.error("Error Loading Unipack")
         console.error(message);
+        let progressBar = document.getElementById("progressBar");
+        progressBar.setAttribute("hidden", "");
+        progressBar.removeAttribute("max");
+        progressBar.value = 0;
       });
   };
 
-  onMIDISuccess(){
+  onMIDISuccess() {
     console.log("Got access your MIDI devices.");
 
     this.updateMidiList();
@@ -169,9 +189,7 @@ class App extends Component {
 
   onMIDIFailure() {
     console.log("Could not access your MIDI devices.");
-    alert(
-      "Could not access your MIDI devices. Try use another web browser or hardware platform."
-    );
+    alert("Could not access your MIDI devices. Try use another web browser or hardware platform.");
   }
 
   autoConfigPicker(deviceName, mode) {
