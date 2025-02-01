@@ -83,19 +83,19 @@ class App extends Component {
     progressBar.removeAttribute("hidden");
     progressBar.max = 100;
     progressBar.value = 0;
-    fetch("https://cors-anywhere.herokuapp.com/" + url)
+    fetch(url, { method: "GET" }) // https://github.com/Rob--W/cors-anywhere/issues/301
     .then(fetchProgress({
       onProgress(progress) {
         console.log(progress);
         progressBar.value = progress.percentage;
       }}))
-    .then((r => 
-      {var file = r.blob();
+    .then((r => {
+        var file = r.blob();
         console.log(file);
         this.loadProjectFile(file);
       }))
-    .catch((e =>
-      {console.error(e);
+    .catch((e => {
+        console.error(e);
         this.loadProjectFile(e);
       }));
   };
