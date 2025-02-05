@@ -20,18 +20,6 @@ class App extends Component {
   componentDidMount()
   {
     console.log("%c203 | Prismatic \nBuild " + preval`module.exports = new Date().toLocaleString("en-US");`, "color: cyan; font-size: 24px;");
-    setTimeout(() => {
-      if (document.body.scrollHeight > document.body.clientHeight || document.body.scrollWidth > document.body.clientWidth) {
-        if (isElectron()) {
-          document.body.style.setProperty("zoom", "77%");
-        } else {
-          document.body.style.setProperty("zoom", "74%");
-        }
-        console.log(`Zoomed out to ${document.body.style.getPropertyValue("zoom")}`);
-      } else {
-        document.body.style.setProperty("zoom", "100%");
-      }
-    }, 0);
     this.loadUserConfigPerfences();
     setTimeout((this.initlization).bind(this), 0); //Hacky way to get initlization done after first render
   }
