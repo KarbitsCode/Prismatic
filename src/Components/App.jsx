@@ -8,7 +8,7 @@ import Select from "react-select";
 import AutoplayControl from "./AutoplayControl";
 import WebMidi from "webmidi";
 import preval from "preval.macro";
-import isElectron from "is-electron";
+import isOnline from "is-online";
 import fetchProgress from "fetch-progress";
 
 class App extends Component {
@@ -17,15 +17,13 @@ class App extends Component {
     super(props);
   }
 
-  componentDidMount()
-  {
+  componentDidMount() {
     console.log("%c203 | Prismatic \nBuild " + preval`module.exports = new Date().toLocaleString("en-US");`, "color: cyan; font-size: 24px;");
     this.loadUserConfigPerfences();
     setTimeout((this.initlization).bind(this), 0); //Hacky way to get initlization done after first render
   }
 
-  initlization()
-  {
+  initlization() {
     WebMidi.enable(err => {
       if (err) {
         this.onMIDIFailure()
@@ -63,29 +61,42 @@ class App extends Component {
 
   canvas = React.createRef();
 
+  checkOnline = (callback) => {
+    isOnline().then((res) => {
+      if (res) {
+        callback();
+      } else {
+        alert("Error: This machine is not connected to the internet.");
+        throw new Error("Error: This machine is not connected to the internet.");
+      }
+    })
+  }
+
   downloadProjectFile = (url) => {
-    this.setState({statusMessage: "Downloading Unipack"});
     console.log("Downloading Unipack from " + url);
     alert("Downloading Unipack from " + url);
-    let progressBar = document.getElementById("progressBar");
-    progressBar.removeAttribute("hidden");
-    progressBar.max = 100;
-    progressBar.value = 0;
-    fetch(url, { method: "GET" }) // https://github.com/Rob--W/cors-anywhere/issues/301
-    .then(fetchProgress({
-      onProgress(progress) {
-        console.log(progress);
-        progressBar.value = progress.percentage;
-      }}))
-    .then((r => {
-        var file = r.blob();
-        console.log(file);
-        this.loadProjectFile(file);
-      }))
-    .catch((e => {
-        console.error(e);
-        this.loadProjectFile(e);
-      }));
+    this.checkOnline((() => {
+      this.setState({statusMessage: "Downloading Unipack"});
+      let progressBar = document.getElementById("progressBar");
+      progressBar.removeAttribute("hidden");
+      progressBar.max = 100;
+      progressBar.value = 0;
+      fetch(url, { method: "GET" }) // https://github.com/Rob--W/cors-anywhere/issues/301
+      .then(fetchProgress({
+        onProgress(progress) {
+          console.log(progress);
+          progressBar.value = progress.percentage;
+        }}))
+      .then((r => {
+          var file = r.blob();
+          console.log(file);
+          this.loadProjectFile(file);
+        }))
+      .catch((e => {
+          console.error(e);
+          this.loadProjectFile({"name": url.split("/").pop()});
+        }));
+    }));
   };
 
   loadProjectFile = (projectPack) => {
@@ -216,7 +227,20 @@ class App extends Component {
         <div className="main">
           <div className="sidebar">
             <text>203 | Prismatic (Tech Preview Demo)</text>
-            <div><a href="https://play.203.io/" target="_self">Load Amethyst Player</a></div>
+            <div>
+              <a
+                href="https://play.203.io/"
+                target="_self"
+                onClick={(event) => {
+                  event.preventDefault();
+                  this.checkOnline(() => {
+                    window.location.assign(event.currentTarget.href);
+                  })
+                }}
+              >
+                Load Amethyst Player
+              </a>
+            </div>
             <div className="sidebarItem" />
             <text className="sidebarItem">
               {this.state.statusMessage}
