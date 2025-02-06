@@ -232,9 +232,10 @@ class App extends Component {
                 href="https://play.203.io/"
                 target="_self"
                 onClick={(event) => {
+                  let href = event.currentTarget.href;
                   event.preventDefault();
                   this.checkOnline(() => {
-                    window.location.assign(event.currentTarget.href);
+                    window.location.assign(href);
                   })
                 }}
               >
