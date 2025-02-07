@@ -34,8 +34,8 @@ class App extends Component {
     );
 
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("unipack")) {
-      var unipack_url = urlParams.get("unipack");
+    let unipack_url = urlParams.get("unipack");
+    if (unipack_url) {
       this.downloadProjectFile(unipack_url);
     }
   }
@@ -60,43 +60,47 @@ class App extends Component {
   };
 
   canvas = React.createRef();
+  projectFileReader = React.createRef();
 
-  checkOnline = (callback) => {
+  checkOnline = (callback, callbackFail = () => {}) => {
     isOnline().then((res) => {
       if (res) {
         callback();
       } else {
+        console.error("Error: This machine is not connected to the internet.");
         alert("Error: This machine is not connected to the internet.");
-        throw new Error("Error: This machine is not connected to the internet.");
+        callbackFail();
       }
     })
   }
 
   downloadProjectFile = (url) => {
+    this.setState({statusMessage: "Downloading Unipack"});
     console.log("Downloading Unipack from " + url);
     alert("Downloading Unipack from " + url);
     this.checkOnline((() => {
-      this.setState({statusMessage: "Downloading Unipack"});
-      let progressBar = document.getElementById("progressBar");
-      progressBar.removeAttribute("hidden");
-      progressBar.max = 100;
-      progressBar.value = 0;
+      let urlFile = {"name": url.split("/").pop()};
+      let projectFileReader = this.projectFileReader.current;
+      projectFileReader.setFileSelectedDisplay(projectFileReader.normalizeFilename(urlFile.name));
+      projectFileReader.setupProgressBar(100);
       fetch(url, { method: "GET" }) // https://github.com/Rob--W/cors-anywhere/issues/301
       .then(fetchProgress({
         onProgress(progress) {
           console.log(progress);
-          progressBar.value = progress.percentage;
+          projectFileReader.setProgressState(progress.percentage);
         }}))
       .then((r => {
-          var file = r.blob();
+          let file = r.blob();
           console.log(file);
           this.loadProjectFile(file);
         }))
       .catch((e => {
           console.error(e);
-          this.loadProjectFile({"name": url.split("/").pop()});
+          this.loadProjectFile(urlFile);
         }));
-    }));
+    }), () => {
+      this.setState({statusMessage: "Error Loading Unipack"});
+    });
   };
 
   loadProjectFile = (projectPack) => {
@@ -110,7 +114,7 @@ class App extends Component {
       return
     this.setState({projectFile: undefined});
     this.setState({statusMessage: "Loading Unipack"});
-    new ProjectFile(projectPack, this.canvas)
+    new ProjectFile(projectPack, this.canvas, this.projectFileReader)
       .then((projectFile) => {
         this.setState({projectFile: projectFile});
         console.log(projectFile);
@@ -121,10 +125,7 @@ class App extends Component {
         alert("Error Loading Unipack: " + projectPack.name)
         console.error("Error Loading Unipack")
         console.error(message);
-        let progressBar = document.getElementById("progressBar");
-        progressBar.setAttribute("hidden", "");
-        progressBar.removeAttribute("max");
-        progressBar.value = 0;
+        this.projectFileReader.current.cleanupProgressBar();
       });
   };
 
@@ -248,6 +249,7 @@ class App extends Component {
             </text>
             <div />
             <ProjectFileReader
+              ref={this.projectFileReader}
               loadProjectFile={this.loadProjectFile}
             ></ProjectFileReader>
             <div className="sidebarItem" />

@@ -10,10 +10,12 @@ class ProjectFile {
   autoplay = undefined;
   keyLED = undefined;
   canvas = undefined;
+  progress = undefined;
   activeKeyLED = {};
 
-  constructor(file, canvas) {
+  constructor(file, canvas, progress) {
     this.canvas = canvas.current;
+    this.progress = progress.current;
     return this.unpack(file);
   }
 
@@ -33,10 +35,7 @@ class ProjectFile {
         let keySoundFile = undefined;
         let autoplayFile = undefined;
         let keyLEDFiles = {};
-        let progressBar = document.getElementById("progressBar");
-        progressBar.removeAttribute("hidden");
-        progressBar.max = files.length;
-        progressBar.value = 0;
+        this.progress.setupProgressBar(files.length);
 
         //Load info and categorize files
         for (let file of files) {
@@ -97,11 +96,9 @@ class ProjectFile {
               }
             }
           }
-          progressBar.value = parseInt(progressBar.value) + 1;
+          this.progress.setProgressState(this.progress.getProgressState() + 1);
         }
-        progressBar.setAttribute("hidden", "");
-        progressBar.removeAttribute("max");
-        progressBar.value = 0;
+        this.progress.cleanupProgressBar();
    
         //Initialize 4D arraies
         this.keySound = new Array(this.info.chain).fill(null).map(
