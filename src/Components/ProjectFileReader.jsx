@@ -27,7 +27,7 @@ class ProjectFileReader extends Component {
 
   normalizeFilename = (name) => {
     let textSize = 10;
-    if (name.length >= 20) {
+    if (name.length >= 25) {
       if (name.substring(0, name.length - 4) === name.slice(0, -4).toUpperCase()) {
         textSize = textSize - 2;
       };
