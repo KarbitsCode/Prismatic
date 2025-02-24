@@ -10,6 +10,7 @@ import WebMidi from "webmidi";
 import preval from "preval.macro";
 import isOnline from "is-online";
 import fetchProgress from "fetch-progress";
+import noop from "noop3";
 
 class App extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -62,7 +63,7 @@ class App extends Component {
   canvas = React.createRef();
   projectFileReader = React.createRef();
 
-  checkOnline = (callback, callbackFail = () => {}) => {
+  checkOnline = (callback, callbackFail = noop) => {
     isOnline().then((res) => {
       if (res) {
         callback();
