@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("%c203 | Prismatic \nBuild " + preval`module.exports = new Date().toLocaleString("en-US");`, "color: cyan; font-size: 24px;");
+    console.log(`%c203 | Prismatic \nBuild ${preval`module.exports = new Date().toLocaleString("en-US");`}`, "color: cyan; font-size: 24px;");
     this.loadUserConfigPerfences();
     setTimeout((this.initlization).bind(this), 0); //Hacky way to get initlization done after first render
   }
@@ -77,8 +77,8 @@ class App extends Component {
 
   downloadProjectFile = (url) => {
     this.setState({statusMessage: "Downloading Unipack"});
-    console.log("Downloading Unipack from " + url);
-    alert("Downloading Unipack from " + url);
+    console.log(`Downloading Unipack from ${url}`);
+    alert(`Downloading Unipack from ${url}`);
     this.checkOnline((() => {
       let urlFile = {"name": url.split("/").pop()};
       let projectFileReader = this.projectFileReader.current;
@@ -123,7 +123,7 @@ class App extends Component {
       })
       .catch((message) => {
         this.setState({statusMessage: "Error Loading Unipack"});
-        alert("Error Loading Unipack: " + projectPack.name)
+        alert(`Error Loading Unipack: ${projectPack.name}`)
         console.error("Error Loading Unipack")
         console.error(message);
         this.projectFileReader.current.cleanupProgressBar();
@@ -374,7 +374,7 @@ class App extends Component {
   }
 
   setOutputDevice(device, autoPickConfig = true) {
-    console.log("Output device set to " + device.name);
+    console.log(`Output device set to ${device.name}`);
     this.setState({ outputDevice: device.value });
     if(autoPickConfig) this.autoConfigPicker(device.value.name, "Output");
     localStorage.setItem('perferedOutputDevice', device.value.name);

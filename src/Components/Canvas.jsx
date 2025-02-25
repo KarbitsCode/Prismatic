@@ -111,7 +111,7 @@ class Canvas extends Component {
     } else {
       [x, y] = this.arrayCalculation([x, y], config.canvas_origin, "+");
     }
-    console.log("Note On - " + x.toString() + " " + y.toString());
+    console.log(`Note On - ${x.toString()} ${y.toString()}`);
     console.log([x, y, canvas_x, canvas_y])
 
     if (this.props.projectFile !== undefined) {
@@ -163,7 +163,7 @@ class Canvas extends Component {
     } else {
       [x, y] = this.arrayCalculation([x, y], config.canvas_origin, "+");
     }
-    console.log("Note Off - " + x.toString() + " " + y.toString());
+    console.log(`Note Off - ${x.toString()} ${y.toString()}`);
 
     if (this.props.projectFile !== undefined) {
       if (canvas_x >= 0 && canvas_x < 8 && canvas_y >= 0 && canvas_y < 8) {
@@ -209,7 +209,7 @@ class Canvas extends Component {
   };
 
   chainChange = (chain) => {
-    console.log("Chain Changed to " + (chain + 1));
+    console.log(`Chain Changed to ${(chain + 1)}`);
     if (chain !== this.currentChain) this.clearKeypressHistory();
     this.currentChain = chain;
   };
@@ -440,7 +440,7 @@ class Canvas extends Component {
                   }
                   else
                   {
-                    return <div key={"Spacer " + x.toString() + "-" + y.toString()} style={{width: "96px"}}/>
+                    return <div key={`Spacer ${x.toString()} - ${y.toString()}`} style={{width: "96px"}}/>
                   }
                 }
               )}

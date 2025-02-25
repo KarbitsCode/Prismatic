@@ -37,6 +37,7 @@ class KeyLED
     this.end = false;
     this.lastEventTime = Date.now();
     var [x, y] = [undefined, undefined];
+    var id = undefined;
     // console.log("KeyLED");
     // console.timeLog("KeyOn");
     while (this.repeat === 0 || currentLoop++ < this.repeat)
@@ -77,12 +78,12 @@ class KeyLED
               }
               else
               {
-                color = "#" + command[command.length - 1];
+                color = `#${command[command.length - 1]}`;
               }
 
               this.canvas.setColor(x, y, color);
 
-              var id = x + "-" + y;
+              id = `${x}-${y}`;
               if (this.currentOn[id] === undefined)
               {
                 this.currentOn[id] = [x, y];
@@ -109,7 +110,7 @@ class KeyLED
             }
 
             this.canvas.setColor(x, y, 0);
-            id = x + "-" + y;
+            id = `${x}-${y}`;
             delete this.currentOn[id];
             break;
           case 'd': //wait
@@ -161,7 +162,7 @@ class KeyLED
     {
       for (var id in this.currentOn)
       {
-        var [x,y] = this.currentOn[id];
+        var [x, y] = this.currentOn[id];
         this.canvas.setColor(x, y, 0);
       }
     }
@@ -176,7 +177,7 @@ class KeyLED
 
   removeFromActiveList()
   {
-    console.log("Try to delete " + this.id_str);
+    console.log(`Try to delete ${this.id_str}`);
     console.log(this.activeList);
     delete this.activeList[this.id_str];
     console.log(this.activeList);

@@ -101,7 +101,7 @@ class AutoplayControl extends Component {
 
     return (
       <div>
-        <text>{"Autoplay" + statusText}</text>
+        <text>{`Autoplay ${statusText}`}</text>
         <div />
         <div style={{display: "inline-flex"}}>
           <button type="button" style={{width: "20px", backgroundColor: "gray", color: "white"}} onClick={this.backwardClicked}>&#60;</button>

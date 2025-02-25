@@ -182,7 +182,7 @@ class AutoPlay {
   wait(ms) {
     var adjusted_ms = this.lastEventTime + ms - Date.now()
     this.lastEventTime += ms
-    console.log("Waiting " + ms + " (" + adjusted_ms + ")" + " ms")
+    console.log(`Waiting ${ms} (${adjusted_ms}) ms`)
     if (adjusted_ms > 5)
     {
       return new Promise(resolve => setTimeout(resolve, adjusted_ms));
