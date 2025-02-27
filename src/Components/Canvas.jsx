@@ -65,10 +65,10 @@ class Canvas extends Component {
     console.log(midiEvent.data)
     var [event, note, velocity] = midiEvent.data
     var [x, y] = [undefined, undefined]
-    if(this.props.inputConfig.noteToXY !== undefined)
+    if (this.props.inputConfig.noteToXY !== undefined)
     { 
       var xy = this.props.inputConfig.noteToXY(note)
-      if(xy === undefined) return
+      if (xy === undefined) return
       [x, y] = xy
     }
     else
@@ -98,9 +98,9 @@ class Canvas extends Component {
     const currentKeyPressIndex = this.currentKeyPress.indexOf([x, y]);
     if (currentKeyPressIndex === -1) {
       this.currentKeyPress.push([x, y]) // 2nd parameter means remove one item only
-      if(this.autoplay !== null && this.autoplay.state === "PAUSED")
+      if (this.autoplay !== null && this.autoplay.state === "PAUSED")
       {
-        
+        // What is this suppose to mean?
       }
     }
 
@@ -143,7 +143,7 @@ class Canvas extends Component {
   };
 
   checkChain = (x, y, config) => {
-    if(config.chainKey !== undefined)
+    if (config.chainKey !== undefined)
     {
       for (var i = 0; i < Math.min(config.chainKey.length, this.props.projectFile.info.chain); i++) {
         if (config.chainKey[i][0] === x && config.chainKey[i][1] === y) this.chainChange(i);
@@ -244,12 +244,7 @@ class Canvas extends Component {
   };
 
   setColorCanvas(x, y, color) {
-    var [canvas_x, canvas_y] = [undefined, undefined];
-    try {
-      [canvas_x, canvas_y] = this.getCanvasPosition(x, y);
-    } catch (e) {
-      // console.error(e);
-    }
+    var [canvas_x, canvas_y] = (this.getCanvasPosition(x, y) ?? [undefined, undefined]);
 
     try {
       if (/^#[0-9A-F]{6}$/i.test(color)) {
@@ -258,19 +253,14 @@ class Canvas extends Component {
       } else {
         this.state.colormap[canvas_x][canvas_y] = palette[color]; // eslint-disable-line react/no-direct-mutation-state
       }
-    } catch (e) {
+    } catch(e) {
       // console.error(e);
       // console.error([x, y, color, canvas_x, canvas_y]);
     }
   }
 
   setHighlightCanvas(x, y, color = null) {
-    var [canvas_x, canvas_y] = [undefined, undefined];
-    try {
-      [canvas_x, canvas_y] = this.getCanvasPosition(x, y);
-    } catch (e) {
-      // console.error(e);
-    }
+    var [canvas_x, canvas_y] = (this.getCanvasPosition(x, y) ?? [undefined, undefined]);
 
     try {
       if (/^#[0-9A-F]{6}$/i.test(color)) {
@@ -279,7 +269,7 @@ class Canvas extends Component {
       } else {
         this.state.highlightmap[canvas_x][canvas_y] = palette[color]; // eslint-disable-line react/no-direct-mutation-state
       }
-    } catch (e) {
+    } catch(e) {
       // console.error(e);
       // console.error([x, y, color, canvas_x, canvas_y]);
     }
@@ -307,7 +297,7 @@ class Canvas extends Component {
   setColorOutput(x, y, color) {
     if (this.props.outputDevice !== undefined && this.props.outputConfig !== undefined) {
       var output_xy = this.getDevicePosition(x, y);
-      if(output_xy === undefined)
+      if (output_xy === undefined)
         return
 
       var [output_x, output_y] = output_xy;
@@ -320,7 +310,7 @@ class Canvas extends Component {
         } else {
           this.sendMidi("NoteOn", this.props.outputConfig.channel, this.props.outputConfig.keymap[output_y][output_x], color);
         }
-      } catch (e) {
+      } catch(e) {
         console.error(e);
         console.error([x, y, color, output_x, output_y]);
       }
@@ -434,7 +424,7 @@ class Canvas extends Component {
           return (
             <div className="button-row">
               {this.props.layoutConfig.layout[y].map((value, x) => {
-                if(Object.keys(buttonConfigs).includes(value))
+                if (Object.keys(buttonConfigs).includes(value))
                   {
                     return <Button x={x} y={y} class={buttonConfigs[value].class} overlayClass={buttonConfigs[value].overlayClass} color={this.state.colormap[x][y]} highlight={this.state.highlightmap[x][y]} on={this.keyOn} off={this.keyOff} />;
                   }
