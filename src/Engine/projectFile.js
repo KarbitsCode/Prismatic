@@ -45,8 +45,9 @@ class ProjectFile {
             if (filename.includes("sounds/")) //Audio
             {
               console.log(`Sound file: ${filename}`);
-              this.soundFiles[filename.split("/").pop()] = await file.async("blob").then(function (blob) {
-                return new keySound(blob, filename.split("/").pop());
+              let soundFilename = filename.split("/").slice(1).join("/"); // Remove "sounds/" part
+              this.soundFiles[soundFilename] = await file.async("blob").then(function(blob) {
+                return new keySound(blob, soundFilename);
               });
             }
             else {
