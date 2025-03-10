@@ -14,6 +14,7 @@
     "is-online": "^11.0.0",
     "jszip": "^3.5.0",
     "noop3": "^1000.0.0",
+    "patch-package": "^8.0.0",
     "preval.macro": "^5.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
