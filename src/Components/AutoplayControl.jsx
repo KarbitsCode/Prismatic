@@ -37,8 +37,7 @@ class AutoplayControl extends Component {
     var playButton = (
       <button
         type="button"
-        className="button"
-        style={{ width: "50px", marginRight: "10px" }}
+        className="button playControl"
         onClick={this.playAutoplay}
       >
         Play
@@ -47,8 +46,7 @@ class AutoplayControl extends Component {
     var pauseButton = (
       <button
         type="button"
-        className="button"
-        style={{ width: "50px", marginRight: "10px" }}
+        className="button playControl"
         onClick={this.pauseAutoplay}
       >
         Pause
@@ -57,8 +55,7 @@ class AutoplayControl extends Component {
     var stopButton = (
       <button
         type="button"
-        className="button"
-        style={{ width: "50px", marginRight: "10px" }}
+        className="button playControl"
         onClick={this.stopAutoplay}
       >
         Stop
@@ -104,13 +101,13 @@ class AutoplayControl extends Component {
         <text>{`Autoplay ${statusText}`}</text>
         <div />
         <div style={{display: "inline-flex"}}>
-          <button type="button" style={{width: "20px", backgroundColor: "gray", color: "white"}} onClick={this.backwardClicked}>&#60;</button>
+          <button type="button" className="seekControl" onClick={this.backwardClicked}>&#60;</button>
           <input type="range" min="0" max={this.props.project.autoplay.total} ref={this.slider} onChange={this.sliderChanged}/>
-          <button type="button" style={{width: "20px", backgroundColor: "gray", color: "white"}} onClick={this.forwardClicked}>&#62;</button>
+          <button type="button" className="seekControl" onClick={this.forwardClicked}>&#62;</button>
         </div>
         <div />
-        <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/><span style={{marginLeft: "2px", marginRight: "5px"}}>LED</span>
-        <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={this.highlightCheckbox}/><span style={{marginLeft: "2px", marginRight: "5px"}}>Highlight</span>
+        <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/><span className="checkboxLabel">LED</span>
+        <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={this.highlightCheckbox}/><span className="checkboxLabel">Highlight</span>
         <div />
         {buttons}
       </div>
