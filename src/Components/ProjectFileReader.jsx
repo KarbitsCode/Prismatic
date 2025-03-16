@@ -68,8 +68,8 @@ class ProjectFileReader extends Component {
     return (
       <React.Fragment>
         <input type="file" name="projectFile" accept=".zip" hidden onChange={this.onFileChange} onClick={this.onFileClick} ref={this.fileRef}></input>
-        <button type="button" className="button chooserLabel" onClick={this.onButtonClick}>Choose File</button>
-        <span className="currentLabel">{this.state.lastFileSelected}</span><br></br>
+        <button type="button" className="button chooser-label" onClick={this.onButtonClick}>Choose File</button>
+        <span className="current-label">{this.state.lastFileSelected}</span><br></br>
         <input type="range" ref={this.progressRef} disabled hidden></input>
       </React.Fragment>
     );

@@ -38,7 +38,7 @@ class AutoplayControl extends Component {
       <button
         key={`playButton`}
         type="button"
-        className="button playControl"
+        className="button control"
         onClick={this.playAutoplay}
       >
         Play
@@ -48,7 +48,7 @@ class AutoplayControl extends Component {
       <button
         key={`pauseButton`}
         type="button"
-        className="button playControl"
+        className="button control"
         onClick={this.pauseAutoplay}
       >
         Pause
@@ -58,7 +58,7 @@ class AutoplayControl extends Component {
       <button
         key={`stopButton`}
         type="button"
-        className="button playControl"
+        className="button control"
         onClick={this.stopAutoplay}
       >
         Stop
@@ -104,13 +104,13 @@ class AutoplayControl extends Component {
         <text>{`Autoplay ${statusText}`}</text>
         <div />
         <div style={{display: "inline-flex"}}>
-          <button type="button" className="seekControl" onClick={this.backwardClicked}>&#60;</button>
+          <button type="button" className="seek-control" onClick={this.backwardClicked}>&#60;</button>
           <input type="range" min="0" max={this.props.project.autoplay.total} ref={this.slider} onChange={this.sliderChanged}/>
-          <button type="button" className="seekControl" onClick={this.forwardClicked}>&#62;</button>
+          <button type="button" className="seek-control" onClick={this.forwardClicked}>&#62;</button>
         </div>
         <div />
-        <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/><span className="checkboxLabel">LED</span>
-        <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={this.highlightCheckbox}/><span className="checkboxLabel">Highlight</span>
+        <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/><span className="checkbox-label">LED</span>
+        <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={this.highlightCheckbox}/><span className="checkbox-label">Highlight</span>
         <div />
         {buttons}
       </div>

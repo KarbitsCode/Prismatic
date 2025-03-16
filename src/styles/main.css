@@ -65,29 +65,29 @@ body {
   display: flex;
 }
 
-.playControl {
+.control {
   width: 50px;
   margin-right: 10px;
 }
 
-.seekControl {
+.seek-control {
   width: 20px;
   background-color: gray;
   color: white;
 }
 
-.checkboxLabel {
+.checkbox-label {
   margin-left: 2px;
   margin-right: 5px;
 }
 
-.chooserLabel {
+.chooser-label {
   display: inline;
   height: 17px;
   width: 84px;
 }
 
-.currentLabel {
+.current-label {
   font-size: 14px;
   margin-left: 5px;
 }
