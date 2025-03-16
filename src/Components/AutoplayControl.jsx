@@ -115,7 +115,7 @@ class AutoplayControl extends Component {
   };
 
   backwardClicked = () => {
-    var skip = 4;
+    var skip = 16;
     if (this.props.project.autoplay.backward(skip)) {
       this.slider.current.value = parseInt(this.slider.current.value) - skip;
       console.log(`Seeked backward by ${skip}`);
@@ -126,7 +126,7 @@ class AutoplayControl extends Component {
   };
 
   forwardClicked = () => {
-    var skip = 4;
+    var skip = 16;
     if (this.props.project.autoplay.forward(skip)) {
       this.slider.current.value = parseInt(this.slider.current.value) + skip;
       console.log(`Seeked forward by ${skip}`);
