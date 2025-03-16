@@ -20,12 +20,12 @@ class AutoplayControl extends Component {
         ["mousedown", "touchstart"].forEach((event) => {
           this.slider.current.addEventListener(event, () => {
             this.setState({ sliderClicked: true });
-          });
+          }, { passive: true });
         });
         ["mouseup", "touchend"].forEach((event) => {
           this.slider.current.addEventListener(event, () => {
             this.setState({ sliderClicked: false });
-          });
+          }, { passive: true });
         });
         this.slider.current.value = 0;
         clearInterval(sliderEventMountLoop);
