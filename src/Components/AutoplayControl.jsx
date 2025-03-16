@@ -36,6 +36,7 @@ class AutoplayControl extends Component {
   render() {
     var playButton = (
       <button
+        key={`playButton`}
         type="button"
         className="button playControl"
         onClick={this.playAutoplay}
@@ -45,6 +46,7 @@ class AutoplayControl extends Component {
     );
     var pauseButton = (
       <button
+        key={`pauseButton`}
         type="button"
         className="button playControl"
         onClick={this.pauseAutoplay}
@@ -54,6 +56,7 @@ class AutoplayControl extends Component {
     );
     var stopButton = (
       <button
+        key={`stopButton`}
         type="button"
         className="button playControl"
         onClick={this.stopAutoplay}

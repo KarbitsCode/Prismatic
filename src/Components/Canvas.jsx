@@ -422,11 +422,11 @@ class Canvas extends Component {
       >
         {this.props.layoutConfig.layout.map((value, y) => {
           return (
-            <div className="button-row">
+            <div key={`${y.toString()}`} className="button-row">
               {this.props.layoutConfig.layout[y].map((value, x) => {
                 if (Object.keys(buttonConfigs).includes(value))
                   {
-                    return <Button x={x} y={y} class={buttonConfigs[value].class} overlayClass={buttonConfigs[value].overlayClass} color={this.state.colormap[x][y]} highlight={this.state.highlightmap[x][y]} on={this.keyOn} off={this.keyOff} />;
+                    return <Button key={`${x.toString()}`} x={x} y={y} class={buttonConfigs[value].class} overlayClass={buttonConfigs[value].overlayClass} color={this.state.colormap[x][y]} highlight={this.state.highlightmap[x][y]} on={this.keyOn} off={this.keyOff} />;
                   }
                   else
                   {
