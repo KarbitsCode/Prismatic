@@ -20,10 +20,10 @@ class keySound {
       html5: !Howler.usingWebAudio,
       onend: this.onEnd.bind(this),
       onloaderror:function (id, message) {
-        console.error(`Howler Load Error ${id} ${message}`);
+        console.error(`Howler Load Error(${id}): ${message}`);
       },
       onplayerror:function (id, message) {
-        console.error(`Howler Play Error ${id} ${message}`);
+        console.error(`Howler Play Error(${id}): ${message}`);
       }
     });
   }
