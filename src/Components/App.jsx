@@ -84,7 +84,7 @@ class App extends Component {
       let projectFileReader = this.projectFileReader.current;
       projectFileReader.setFileSelectedDisplay(projectFileReader.normalizeFilename(urlFile.name));
       projectFileReader.setupProgressBar(100);
-      fetch(url, { method: "GET" }) // https://github.com/Rob--W/cors-anywhere/issues/301
+      fetch(`https://api.codetabs.com/v1/proxy?quest=${url}`, { method: "GET" })
       .then(fetchProgress({
         onProgress(progress) {
           console.log(progress);
