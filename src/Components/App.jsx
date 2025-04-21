@@ -241,7 +241,7 @@ class App extends Component {
                   })
                 }}
               >
-                Load Amethyst Player
+                <text>Load Amethyst Player</text>
               </a>
             </div>
             <div className="sidebarItem" />
