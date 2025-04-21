@@ -109,6 +109,7 @@ class AutoplayControl extends Component {
           <button type="button" className="seek-control" onClick={this.forwardClicked}>&#62;</button>
         </div>
         <div />
+        <input type="checkbox" checked={this.props.project.autoplay.sound} onChange={this.soundCheckbox}/><span className="checkbox-label">Sound</span>
         <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/><span className="checkbox-label">LED</span>
         <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={this.highlightCheckbox}/><span className="checkbox-label">Highlight</span>
         <div />
@@ -145,7 +146,14 @@ class AutoplayControl extends Component {
     };
   };
 
+  soundCheckbox = () => {
+    this.props.project.stopKeySound();
+    this.props.project.autoplay.sound = !this.props.project.autoplay.sound;
+    console.log(`Sound ${this.props.project.autoplay.sound ? "On" : "Off"}`);
+  };
+
   LEDCheckbox = () => {
+    this.props.project.stopKeyLED();
     this.props.project.autoplay.led = !this.props.project.autoplay.led;
     console.log(`LED ${this.props.project.autoplay.led ? "On" : "Off"}`);
   };
@@ -160,6 +168,7 @@ class AutoplayControl extends Component {
       if (this.props.project.autoplay.status === "STOPPED") {
         this.stopAutoplay();
       };
+      this.props.project.stopAll();
       this.props.project.autoplay.play(
         // this.props.canvas.current,
         // this.props.layoutConfig.canvas_origin
