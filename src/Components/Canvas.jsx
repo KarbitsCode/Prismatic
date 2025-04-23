@@ -94,7 +94,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, sound = true, led = true) => {
+  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, sound = true, led = true, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
     const currentKeyPressIndex = this.currentKeyPress.indexOf([x, y]);
     if (currentKeyPressIndex === -1) {
       this.currentKeyPress.push([x, y]) // 2nd parameter means remove one item only
@@ -119,7 +119,9 @@ class Canvas extends Component {
         //LED
         if (led && this.props.projectFile.keyLED !== undefined && this.props.projectFile.keyLED[this.currentChain] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y].length > 0) {
           let ledIndex = this.keypressHistory[canvas_x][canvas_y] % this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y].length;
-          this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y][ledIndex].stop();
+          if (!spam?.led) {
+            this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y][ledIndex].stop();
+          }
           this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y][ledIndex].play();
         }
 
@@ -135,7 +137,9 @@ class Canvas extends Component {
               soundLoop = parseInt(this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][1][0]);
             }
           }
-          this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][0].stop();
+          if (!spam?.sound) {
+            this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][0].stop();
+          }
           this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y][soundIndex][0].play(soundLoop);
         }
       }

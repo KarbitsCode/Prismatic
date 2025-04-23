@@ -10,7 +10,8 @@ class AutoplayControl extends Component {
     }, 1000 / 60);
     this.slider = React.createRef();
     this.state = {
-      sliderClicked: false
+      sliderClicked: false,
+      advancedClicked: false
     };
   };
 
@@ -109,9 +110,22 @@ class AutoplayControl extends Component {
           <button type="button" className="seek-control" onClick={this.forwardClicked}>&#62;</button>
         </div>
         <div />
-        <input type="checkbox" checked={this.props.project.autoplay.sound} onChange={this.soundCheckbox}/><span className="checkbox-label">Sound</span>
-        <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/><span className="checkbox-label">LED</span>
-        <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={this.highlightCheckbox}/><span className="checkbox-label">Highlight</span>
+        <div>
+          <input type="checkbox" checked={this.props.project.autoplay.sound} onChange={this.soundCheckbox}/><span className="checkbox-label">Sound</span>
+          <input type="checkbox" checked={this.props.project.autoplay.led} onChange={this.LEDCheckbox}/><span className="checkbox-label">LED</span>
+          <input type="checkbox" checked={this.props.project.autoplay.highlight} onChange={this.highlightCheckbox}/><span className="checkbox-label">Highlight</span>
+        </div>
+        <div />
+        {!this.state.advancedClicked ? (
+          <div>
+            <a href="javascript:void(0)" onClick={this.advancedClicked}>Advanced</a>
+          </div>
+        ) : (
+          <div>
+            <input type="checkbox" checked={this.props.project.autoplay.spam.sound} onChange={this.spamSoundCheckbox}/><span className="checkbox-label">Spam Sound</span>
+            <input type="checkbox" checked={this.props.project.autoplay.spam.led} onChange={this.spamLEDCheckbox}/><span className="checkbox-label">Spam LED</span>
+          </div>
+        )}
         <div />
         {buttons}
       </div>
@@ -144,6 +158,20 @@ class AutoplayControl extends Component {
     if (this.props.project.autoplay.seek(this.slider.current.value)) {
       console.log(`Seeking to ${this.slider.current.value}`);
     };
+  };
+
+  advancedClicked = () => {
+    this.setState({ advancedClicked: !this.state.advancedClicked });
+  }
+
+  spamSoundCheckbox = () => {
+    this.props.project.autoplay.spam.sound = !this.props.project.autoplay.spam.sound;
+    console.log(`Spam Sound ${this.props.project.autoplay.spam.sound ? "On" : "Off"}`);
+  };
+
+  spamLEDCheckbox = () => {
+    this.props.project.autoplay.spam.led = !this.props.project.autoplay.spam.led;
+    console.log(`Spam LED ${this.props.project.autoplay.spam.led ? "On" : "Off"}`);
   };
 
   soundCheckbox = () => {
