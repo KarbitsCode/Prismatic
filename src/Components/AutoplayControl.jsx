@@ -118,12 +118,13 @@ class AutoplayControl extends Component {
         <div />
         {!this.state.advancedClicked ? (
           <div>
-            <a href="javascript:void(0)" onClick={this.advancedClicked}>Advanced</a>
+            <button type="button" className="button-link" onClick={this.advancedClicked}>Advanced</button>
           </div>
         ) : (
           <div>
             <input type="checkbox" checked={this.props.project.autoplay.spam.sound} onChange={this.spamSoundCheckbox}/><span className="checkbox-label">Spam Sound</span>
             <input type="checkbox" checked={this.props.project.autoplay.spam.led} onChange={this.spamLEDCheckbox}/><span className="checkbox-label">Spam LED</span>
+            <button type="button" className="button-link" onClick={this.advancedClicked}>Hide Advanced</button>
           </div>
         )}
         <div />

@@ -94,7 +94,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, sound = true, led = true, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
+  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, sound = this.props.projectFile.autoplay.sound, led = this.props.projectFile.autoplay.led, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
     const currentKeyPressIndex = this.currentKeyPress.indexOf([x, y]);
     if (currentKeyPressIndex === -1) {
       this.currentKeyPress.push([x, y]) // 2nd parameter means remove one item only
