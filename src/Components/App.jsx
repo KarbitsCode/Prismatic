@@ -9,6 +9,7 @@ import AutoplayControl from "./AutoplayControl";
 import WebMidi from "webmidi";
 import preval from "preval.macro";
 import isOnline from "is-online";
+import isElectron from 'is-electron';
 import fetchProgress from "fetch-progress";
 import noop from "noop3";
 
@@ -20,6 +21,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log(`%c203 | Prismatic \nBuild ${preval`module.exports = new Date().toLocaleString("en-US");`}`, "color: cyan; font-size: 24px;");
+    console.log(`Running in ${isElectron() ? 'Electron' : 'Browser'} mode`);
     this.loadUserConfigPerfences();
     setTimeout((this.initlization).bind(this), 0); //Hacky way to get initlization done after first render
   }
