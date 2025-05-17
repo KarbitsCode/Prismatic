@@ -221,6 +221,18 @@ class ProjectFile {
     this.stopKeyLED();
     this.stopKeySound();
   }
+
+  pauseKeySound() {
+    if (this.autoplay.status === "PLAYING") {
+      Howler.volume(Number(this.autoplay.sound));
+    } else {
+      this.stopKeySound();
+    }
+  }
+
+  pauseKeyLED() {
+    this.stopKeyLED();
+  }
 }
 
 export default ProjectFile;

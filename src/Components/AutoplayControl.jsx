@@ -176,14 +176,14 @@ class AutoplayControl extends Component {
   };
 
   soundCheckbox = () => {
-    this.props.project.stopKeySound();
     this.props.project.autoplay.sound = !this.props.project.autoplay.sound;
+    this.props.project.pauseKeySound();
     console.log(`Sound ${this.props.project.autoplay.sound ? "On" : "Off"}`);
   };
 
   LEDCheckbox = () => {
-    this.props.project.stopKeyLED();
     this.props.project.autoplay.led = !this.props.project.autoplay.led;
+    this.props.project.pauseKeyLED();
     console.log(`LED ${this.props.project.autoplay.led ? "On" : "Off"}`);
   };
 

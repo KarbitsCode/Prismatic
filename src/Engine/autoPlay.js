@@ -65,7 +65,7 @@ class AutoPlay {
           break;
         case 'f':
         case 'off':
-          this.canvas.keyOff(parseInt(command[2]) - 1, parseInt(command[1]) - 1, undefined, true);
+          this.canvas.keyOff(parseInt(command[2]) - 1, parseInt(command[1]) - 1, undefined, true, this.sound, this.led, this.spam);
           if (this.highlight)
           {
             this.canvas.setHighlight(parseInt(command[2]) - 1, parseInt(command[1]) - 1);
@@ -74,7 +74,7 @@ class AutoPlay {
         case 't':
         case 'touch':
           this.canvas.keyOn(parseInt(command[2]) - 1, parseInt(command[1]) - 1, undefined, true, this.sound, this.led, this.spam);
-          this.canvas.keyOff(parseInt(command[2]) - 1, parseInt(command[1]) - 1, undefined, true);
+          this.canvas.keyOff(parseInt(command[2]) - 1, parseInt(command[1]) - 1, undefined, true, this.sound, this.led, this.spam);
           if (this.highlight)
           {
             this.canvas.setHighlight(parseInt(command[2]) - 1, parseInt(command[1]) - 1, this.highlightColor);

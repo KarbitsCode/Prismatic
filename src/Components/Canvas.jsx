@@ -98,10 +98,6 @@ class Canvas extends Component {
     const currentKeyPressIndex = this.currentKeyPress.indexOf([x, y]);
     if (currentKeyPressIndex === -1) {
       this.currentKeyPress.push([x, y]) // 2nd parameter means remove one item only
-      if (this.autoplay !== null && this.autoplay.state === "PAUSED")
-      {
-        // What is this suppose to mean?
-      }
     }
 
     let soundLoop = 1;
@@ -155,7 +151,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, sound = true, led = true) => {
+  keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, sound = this.props.projectFile.autoplay.sound, led = this.props.projectFile.autoplay.led, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
     const currentKeyPressIndex = this.currentKeyPress.indexOf([x, y]);
     if (currentKeyPressIndex > -1) {
       this.currentKeyPress.splice(currentKeyPressIndex, 1); // 2nd parameter means remove one item only
