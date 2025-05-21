@@ -231,7 +231,12 @@ class ProjectFile {
   }
 
   pauseKeyLED() {
-    this.stopKeyLED();
+    if (this.autoplay.status === "PLAYING") {
+      KeyLED.enable = this.autoplay.led;
+      this.canvas.clearCanvas();
+    } else {
+      this.stopKeyLED();
+    }
   }
 }
 

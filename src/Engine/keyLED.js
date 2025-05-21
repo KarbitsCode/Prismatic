@@ -11,6 +11,7 @@ class KeyLED
   currentOn = [];
   lastEventTime = undefined;
   activeList = undefined; //Global, refence to the activeKeyLED object in the projectFile
+  static enable = true;
 
   constructor(text, repeat, canvas, id, activeList)
   {
@@ -79,6 +80,12 @@ class KeyLED
               else
               {
                 color = `#${command[command.length - 1]}`;
+              }
+
+              if (!KeyLED.enable)
+              {
+                color = 0;
+                // console.log("hit", color);
               }
 
               this.canvas.setColor(x, y, color);
