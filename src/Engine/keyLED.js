@@ -72,20 +72,16 @@ class KeyLED
                 [x, y] = [parseInt(command[2] - 1), parseInt(command[1] - 1)];
               }
 
-              var color;
-              if (command[command.length - 2] === "a" || command[command.length - 2] === "auto")
-              {
-                color = parseInt(command[command.length - 1]);
-              }
-              else
-              {
-                color = `#${command[command.length - 1]}`;
-              }
-
-              if (!KeyLED.enable)
-              {
-                color = 0;
-                // console.log("hit", color);
+              var color = 0;
+              if (KeyLED.enable) {
+                if (command[command.length - 2] === "a" || command[command.length - 2] === "auto")
+                {
+                  color = parseInt(command[command.length - 1]);
+                }
+                else
+                {
+                  color = `#${command[command.length - 1]}`;
+                }
               }
 
               this.canvas.setColor(x, y, color);

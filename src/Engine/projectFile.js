@@ -238,6 +238,11 @@ class ProjectFile {
       this.stopKeyLED();
     }
   }
+
+  pauseAll() {
+    this.pauseKeyLED();
+    this.pauseKeySound();
+  }
 }
 
 export default ProjectFile;
