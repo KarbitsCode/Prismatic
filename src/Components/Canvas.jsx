@@ -94,7 +94,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, sound = this.props.projectFile.autoplay.sound, led = this.props.projectFile.autoplay.led, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
+  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
     const currentKeyPressIndex = this.currentKeyPress.indexOf([x, y]);
     if (currentKeyPressIndex === -1) {
       this.currentKeyPress.push([x, y]) // 2nd parameter means remove one item only
@@ -113,7 +113,7 @@ class Canvas extends Component {
     if (this.props.projectFile !== undefined) {
       if (canvas_x >= 0 && canvas_x < 8 && canvas_y >= 0 && canvas_y < 8) {
         //LED
-        if (/*led &&*/ this.props.projectFile.keyLED !== undefined && this.props.projectFile.keyLED[this.currentChain] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y].length > 0) {
+        if (this.props.projectFile.keyLED !== undefined && this.props.projectFile.keyLED[this.currentChain] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y].length > 0) {
           let ledIndex = this.keypressHistory[canvas_x][canvas_y] % this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y].length;
           if (!spam?.led) {
             this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y][ledIndex].stop();
@@ -121,7 +121,7 @@ class Canvas extends Component {
           this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y][ledIndex].play();
         }
 
-        if (/*sound &&*/ this.props.projectFile.keySound !== undefined && this.props.projectFile.keySound[this.currentChain] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length > 0) {
+        if (this.props.projectFile.keySound !== undefined && this.props.projectFile.keySound[this.currentChain] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length > 0) {
           //Sound
           let soundIndex = this.keypressHistory[canvas_x][canvas_y] % this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length;
           console.log(`Play sound ${this.currentChain} ${canvas_x}`)
@@ -151,7 +151,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, sound = this.props.projectFile.autoplay.sound, led = this.props.projectFile.autoplay.led, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
+  keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
     const currentKeyPressIndex = this.currentKeyPress.indexOf([x, y]);
     if (currentKeyPressIndex > -1) {
       this.currentKeyPress.splice(currentKeyPressIndex, 1); // 2nd parameter means remove one item only
@@ -168,7 +168,7 @@ class Canvas extends Component {
     if (this.props.projectFile !== undefined) {
       if (canvas_x >= 0 && canvas_x < 8 && canvas_y >= 0 && canvas_y < 8) {
         //LED
-        if (/*led &&*/ this.props.projectFile.keyLED !== undefined && this.props.projectFile.keyLED[this.currentChain] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y].length > 0) {
+        if (this.props.projectFile.keyLED !== undefined && this.props.projectFile.keyLED[this.currentChain] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y].length > 0) {
           let ledIndex = this.keypressHistory[canvas_x][canvas_y] % this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y].length;
           if (this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y][ledIndex] !== undefined && this.props.projectFile.keyLED[this.currentChain][canvas_x][canvas_y][ledIndex].repeat === 0) {
             //Page might have changed
@@ -176,7 +176,7 @@ class Canvas extends Component {
           }
         }
 
-        if (/*sound &&*/ this.props.projectFile.keySound !== undefined && this.props.projectFile.keySound[this.currentChain] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length > 0) {
+        if (this.props.projectFile.keySound !== undefined && this.props.projectFile.keySound[this.currentChain] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y] !== undefined && this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length > 0) {
           //Sound
           let soundIndex = this.keypressHistory[canvas_x][canvas_y] % this.props.projectFile.keySound[this.currentChain][canvas_x][canvas_y].length;
           console.log(`Play sound ${this.currentChain} ${canvas_x}`)
