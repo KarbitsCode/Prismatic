@@ -98,6 +98,10 @@ class AutoPlay {
             setTimeout(() => {this.canvas.setHighlight("chain", parseInt(command[1]) - 1)}, 200);
           }
           break;
+        case 'r':
+        case 'rem':
+          // console.log(command.slice(1).join(' ')) //log comment contents
+          break;
         default:
       }
     }

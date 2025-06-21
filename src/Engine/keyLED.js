@@ -120,6 +120,10 @@ class KeyLED
           case 'delay': 
             await this.wait(parseInt(command[1]));
             break;
+          case 'r': //comment
+          case 'rem': //rem = remark = comment
+            // console.log(command.slice(1).join(' ')) //log comment contents
+            break;
           default:
         }
       }

@@ -93,7 +93,7 @@ class ProjectFile {
                 keyLEDFiles[filename] = text;
               }
               else {
-                console.log(`Unknown file: ${filename}`);
+                console.warn(`Unknown file: ${filename}`);
               }
             }
           }
@@ -146,6 +146,8 @@ class ProjectFile {
           try
           {
             if (line === "") //For empty lines
+              continue;
+            if (line.startsWith("r")) //For remaks/comments
               continue;
    
             let command = line.split(" ");
