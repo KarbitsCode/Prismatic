@@ -50,7 +50,7 @@ const deviceConfigs = {
     height: 10,
 
     //UI related
-    padding: 25,
+    padding: 20,
     radius: 15,
 
     canvas_origin: [1, 1],
@@ -121,7 +121,7 @@ const deviceConfigs = {
     height: 10,
 
     //UI related
-    padding: 25,
+    padding: 20,
     radius: 15,
 
     canvas_origin: [1, 1],
@@ -271,7 +271,7 @@ const deviceConfigs = {
     height: 9,
 
     //UI related
-    padding: 30,
+    padding: 20,
     radius: 15,
 
     canvas_origin: [0, 1],
@@ -360,7 +360,7 @@ const deviceConfigs = {
     height: 9,
 
     //UI related
-    padding: 30,
+    padding: 20,
     radius: 5,
 
     canvas_origin: [0, 1],
@@ -447,7 +447,7 @@ const deviceConfigs = {
     height: 10,
 
     //UI related
-    padding: 25,
+    padding: 20,
     radius: 5,
 
     canvas_origin: [1, 1],

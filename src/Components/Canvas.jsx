@@ -430,7 +430,7 @@ class Canvas extends Component {
                   }
                   else
                   {
-                    return <div key={`Spacer ${x.toString()} - ${y.toString()}`} style={{width: "96px"}}/>
+                    return <div key={`Spacer ${x.toString()} - ${y.toString()}`} style={{width: "9.6vmin"}}/>
                   }
                 }
               )}
