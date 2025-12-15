@@ -8,16 +8,16 @@ class Button extends Component {
     // Turns stuff on
     on = () => 
     {   
-        if (!this.keyState) {
-            this.keyState = true;
+        if (!this.state.keyState) {
+            this.setState({ keyState: true });
             this.props.on(this.props.x, this.props.y)
         }
     }
     
     // Turns stuff off
     off = () => {
-        if (this.keyState) {
-            this.keyState = false;
+        if (this.state.keyState) {
+            this.setState({ keyState: false });
             this.props.off(this.props.x, this.props.y)
         }
     }

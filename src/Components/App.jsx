@@ -370,13 +370,14 @@ class App extends Component {
   }
 
   setInputDevice(device, autoPickConfig = true) {
+    console.log(`Input device set to ${device.value.name}`);
     this.setState({ inputDevice: device.value });
     if(autoPickConfig) this.autoConfigPicker(device.value.name, "Input");
     localStorage.setItem('perferedInputDevice', device.value.name);
   }
 
   setOutputDevice(device, autoPickConfig = true) {
-    console.log(`Output device set to ${device.name}`);
+    console.log(`Output device set to ${device.value.name}`);
     this.setState({ outputDevice: device.value });
     if(autoPickConfig) this.autoConfigPicker(device.value.name, "Output");
     localStorage.setItem('perferedOutputDevice', device.value.name);
