@@ -7,9 +7,15 @@ import buttonConfigs from "../buttonConfigs.js";
 class Canvas extends Component {
   constructor(props) {
     super(props);
-    setInterval(() => {
-      this.setState({ colormap: this.state.colormap });
-    }, 1000 / 60);
+    // setInterval(() => {
+    //   this.setState({ colormap: this.state.colormap });
+    // }, 1000 / 60);
+    this.rafid = null;
+    this.forceRender = () => {
+      this.forceUpdate();
+      this.rafid = requestAnimationFrame(this.forceRender);
+    }
+    this.forceRender();
   }
 
   state = {
@@ -21,6 +27,12 @@ class Canvas extends Component {
   currentChain = 0;
   currentKeyPress = [];
   autoplay = null;
+
+  componentWillUnmount() {
+    if (this.rafid !== null) {
+      cancelAnimationFrame(this.rafid);
+    }
+  }
 
   // shouldUpdate = (nextProps) => !Object.is(this.props.layoutConfig, nextProps.layoutConfig);
 
@@ -95,7 +107,9 @@ class Canvas extends Component {
   };
 
   keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
-    const currentKeyPressIndex = this.currentKeyPress.indexOf([x, y]);
+    const currentKeyPressIndex = this.currentKeyPress.findIndex(
+      ([px, py]) => px === x && py === y
+    );
     if (currentKeyPressIndex === -1) {
       this.currentKeyPress.push([x, y]) // 2nd parameter means remove one item only
     }
@@ -152,7 +166,9 @@ class Canvas extends Component {
   };
 
   keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
-    const currentKeyPressIndex = this.currentKeyPress.indexOf([x, y]);
+    const currentKeyPressIndex = this.currentKeyPress.findIndex(
+      ([px, py]) => px === x && py === y
+    );
     if (currentKeyPressIndex > -1) {
       this.currentKeyPress.splice(currentKeyPressIndex, 1); // 2nd parameter means remove one item only
     }
@@ -247,8 +263,8 @@ class Canvas extends Component {
     var [canvas_x, canvas_y] = (this.getCanvasPosition(x, y) ?? [undefined, undefined]);
 
     try {
+      //Check if it is a Hex String
       if (/^#[0-9A-F]{6}$/i.test(color)) {
-        //Check if it is a Hex String
         this.state.colormap[canvas_x][canvas_y] = color; // eslint-disable-line react/no-direct-mutation-state
       } else {
         this.state.colormap[canvas_x][canvas_y] = palette[color]; // eslint-disable-line react/no-direct-mutation-state
@@ -263,8 +279,8 @@ class Canvas extends Component {
     var [canvas_x, canvas_y] = (this.getCanvasPosition(x, y) ?? [undefined, undefined]);
 
     try {
+      //Check if it is a Hex String
       if (/^#[0-9A-F]{6}$/i.test(color)) {
-        //Check if it is a Hex String
         this.state.highlightmap[canvas_x][canvas_y] = color; // eslint-disable-line react/no-direct-mutation-state
       } else {
         this.state.highlightmap[canvas_x][canvas_y] = palette[color]; // eslint-disable-line react/no-direct-mutation-state
@@ -304,8 +320,8 @@ class Canvas extends Component {
 
       
       try {
+        //Check if it is a Hex String
         if (/^#[0-9A-F]{6}$/i.test(color)) {
-          //Check if it is a Hex String
           this.sendSysex(this.props.outputConfig.hexSysexGen(output_y, output_x, color));
         } else {
           this.sendMidi("NoteOn", this.props.outputConfig.channel, this.props.outputConfig.keymap[output_y][output_x], color);
