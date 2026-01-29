@@ -11,7 +11,9 @@ class AutoPlay {
   sound = true;
   led = true;
   highlight = false;
+  chainHighlight = false;
   highlightColor = "#00FFFF";
+  chainHighlightColor = "#FFFFFF";
 
   constructor(text, canvas) {
     this.autoplay = text;
@@ -94,8 +96,11 @@ class AutoPlay {
           this.currentChain = parseInt(command[1]) - 1;
           if (this.highlight)
           {
-            this.canvas.setHighlight("chain", parseInt(command[1]) - 1, this.highlightColor);
-            setTimeout(() => {this.canvas.setHighlight("chain", parseInt(command[1]) - 1)}, 200);
+            this.canvas.setChainHighlight(parseInt(command[1]) - 1, this.highlightColor, true);
+            setTimeout(() => {
+              this.canvas.setChainHighlight(parseInt(command[1]) - 1);
+              this.canvas.setChainHighlight(parseInt(command[1]) - 1, this.chainHighlightColor);
+            }, 200);
           }
           break;
         case 'r':

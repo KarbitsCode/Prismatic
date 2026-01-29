@@ -124,6 +124,9 @@ class AutoplayControl extends Component {
           <div>
             <input type="checkbox" checked={this.props.project.autoplay.spam.sound} onChange={this.spamSoundCheckbox}/><span className="checkbox-label">Spam Sound</span>
             <input type="checkbox" checked={this.props.project.autoplay.spam.led} onChange={this.spamLEDCheckbox}/><span className="checkbox-label">Spam LED</span>
+            <br />
+            <input type="checkbox" checked={this.props.project.autoplay.chainHighlight} onChange={this.chainLEDHighlightCheckbox}/><span className="checkbox-label">Chain Highlight</span>
+            <br />
             <button type="button" className="button-link" onClick={this.advancedClicked}>Hide Advanced</button>
           </div>
         )}
@@ -190,6 +193,12 @@ class AutoplayControl extends Component {
   highlightCheckbox = () => {
     this.props.project.autoplay.highlight = !this.props.project.autoplay.highlight;
     console.log(`Highlight ${this.props.project.autoplay.highlight ? "On" : "Off"}`);
+  };
+
+  chainLEDHighlightCheckbox = () => {
+    this.props.project.autoplay.chainHighlight = !this.props.project.autoplay.chainHighlight;
+    this.props.canvas.current.setChainHighlight(this.props.canvas.current.currentChain, this.props.project.autoplay.chainHighlightColor, this.props.project.autoplay.chainHighlight);
+    console.log(`Chain Highlight ${this.props.project.autoplay.chainHighlight ? "On" : "Off"}`);
   };
 
   playAutoplay = () => {

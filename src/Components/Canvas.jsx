@@ -236,6 +236,7 @@ class Canvas extends Component {
   chainChange = (chain) => {
     console.log(`Chain Changed to ${(chain + 1)}`);
     if (chain !== this.currentChain) this.clearKeypressHistory();
+    this.setChainHighlight(chain, this.props.projectFile.autoplay.chainHighlightColor);
     this.currentChain = chain;
   };
 
@@ -249,6 +250,14 @@ class Canvas extends Component {
     // console.log(`Set Color ${x} ${y} ${color}`)
     this.setHighlightCanvas(x, y, color);
   };
+
+  setChainHighlight = (chain, color, on = this.props.projectFile.autoplay.chainHighlight) => {
+    // console.log(`Set Color chain ${chain} ${color}`)
+    this.setHighlight("chain", this.currentChain);
+    if (on) {
+      this.setHighlight("chain", chain, color);
+    }
+  }
 
   getCanvasPosition(x, y) {
     var [canvas_x, canvas_y] = [undefined, undefined];
