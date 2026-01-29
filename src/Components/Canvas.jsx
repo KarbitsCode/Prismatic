@@ -15,7 +15,6 @@ class Canvas extends Component {
       this.forceUpdate();
       this.rafid = requestAnimationFrame(this.forceRender);
     }
-    this.forceRender();
   }
 
   state = {
@@ -27,6 +26,10 @@ class Canvas extends Component {
   currentChain = 0;
   currentKeyPress = [];
   autoplay = null;
+
+  componentDidMount() {
+    this.forceRender();
+  }
 
   componentWillUnmount() {
     if (this.rafid !== null) {
@@ -106,7 +109,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
+  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }, highlight = this.props.projectFile.autoplay.highlight, manual = false) => {
     const currentKeyPressIndex = this.currentKeyPress.findIndex(
       ([px, py]) => px === x && py === y
     );
@@ -120,6 +123,9 @@ class Canvas extends Component {
       [canvas_x, canvas_y] = this.arrayCalculation([x, y], config.canvas_origin, "-");
     } else {
       [x, y] = this.arrayCalculation([x, y], config.canvas_origin, "+");
+    }
+    if (manual && highlight) {
+      this.setHighlight(x - 1, y - 1, "#FDFF00");
     }
     console.log(`Note On - ${x.toString()} ${y.toString()}`);
     console.log([x, y, canvas_x, canvas_y])
@@ -165,7 +171,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }) => {
+  keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }, highlight = this.props.projectFile.autoplay.highlight, manual = false) => {
     const currentKeyPressIndex = this.currentKeyPress.findIndex(
       ([px, py]) => px === x && py === y
     );
@@ -178,6 +184,9 @@ class Canvas extends Component {
       [canvas_x, canvas_y] = this.arrayCalculation([x, y], config.canvas_origin, "-");
     } else {
       [x, y] = this.arrayCalculation([x, y], config.canvas_origin, "+");
+    }
+    if (manual && highlight) {
+      this.setHighlight(x - 1, y - 1);
     }
     console.log(`Note Off - ${x.toString()} ${y.toString()}`);
 
