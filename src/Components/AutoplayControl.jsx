@@ -223,6 +223,7 @@ class AutoplayControl extends Component {
       this.slider.current.value = 0;
       this.props.project.autoplay.stop();
       this.props.canvas.current.initlalizeCanvas();
+      this.props.canvas.current.setChainHighlight(this.props.canvas.current.currentChain, this.props.project.autoplay.chainHighlightColor, this.props.project.autoplay.chainHighlight);
     } else {
       alert("No project loaded!");
     };

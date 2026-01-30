@@ -129,7 +129,6 @@ class Canvas extends Component {
       this.setHighlight(x - 1, y - 1, this.props.projectFile.autoplay.manualHighlightColor);
     }
     if (chainHighlight) {
-      this.clearChainHighlight();
       this.setChainHighlight(this.currentChain, this.props.projectFile.autoplay.chainHighlightColor);
     }
     console.log(`Note On - ${x.toString()} ${y.toString()}`);
@@ -272,7 +271,7 @@ class Canvas extends Component {
 
   clearChainHighlight = (chain = this.currentChain) => {
     const chainException = Array.from({ length: 8 }, (_, i) => i).filter(num => num !== chain);
-    console.log(`Current chain highlight: ${chain}`)
+    console.log(`Current chain highlight: ${chain + 1} (index ${chain})`)
     console.log(`Clearing chain highlight: ${chainException}`)
     for (const chain2 of chainException) { // Clear everything else
       this.setChainHighlight(chain2, undefined, false);
