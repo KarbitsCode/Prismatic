@@ -225,16 +225,15 @@ class ProjectFile {
   }
 
   pauseKeySound() {
-    if (this.autoplay.status === "PLAYING") {
-      Howler.volume(Number(this.autoplay.sound));
-    } else {
+    Howler.volume(Number(this.autoplay.sound));
+    if (this.autoplay.status !== "PLAYING") {
       this.stopKeySound();
     }
   }
 
   pauseKeyLED() {
+    KeyLED.enable = this.autoplay.led;
     if (this.autoplay.status === "PLAYING") {
-      KeyLED.enable = this.autoplay.led;
       this.canvas.clearCanvas();
     } else {
       this.stopKeyLED();

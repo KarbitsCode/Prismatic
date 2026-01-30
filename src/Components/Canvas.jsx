@@ -60,6 +60,7 @@ class Canvas extends Component {
     this.clearCanvas(config);
     this.clearKeypressHistory();
     this.currentChain = 0;
+    this.clearChainHighlight();
   }
 
   clearCanvas(config = this.props.layoutConfig) { // eslint-disable-next-line react/no-direct-mutation-state
@@ -254,10 +255,18 @@ class Canvas extends Component {
   setChainHighlight = (chain, color, on = this.props.projectFile.autoplay.chainHighlight) => {
     // console.log(`Set Color chain ${chain} ${color}`)
     this.setHighlight("chain", this.currentChain);
+    this.setHighlight("chain", chain);
     if (on) {
       this.setHighlight("chain", chain, color);
     }
-  }
+  };
+
+  clearChainHighlight = () => {
+    const chainException = Array.from({ length: 8 }, (_, i) => i + 1).filter(num => num !== this.currentChain);
+    for (const chain2 of chainException) { // Clear everything else
+      this.setChainHighlight(chain2, undefined, false);
+    }
+  };
 
   getCanvasPosition(x, y) {
     var [canvas_x, canvas_y] = [undefined, undefined];

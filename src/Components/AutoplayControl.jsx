@@ -197,6 +197,7 @@ class AutoplayControl extends Component {
 
   chainLEDHighlightCheckbox = () => {
     this.props.project.autoplay.chainHighlight = !this.props.project.autoplay.chainHighlight;
+    this.props.canvas.current.clearChainHighlight();
     this.props.canvas.current.setChainHighlight(this.props.canvas.current.currentChain, this.props.project.autoplay.chainHighlightColor, this.props.project.autoplay.chainHighlight);
     console.log(`Chain Highlight ${this.props.project.autoplay.chainHighlight ? "On" : "Off"}`);
   };
@@ -206,6 +207,7 @@ class AutoplayControl extends Component {
       if (this.props.project.autoplay.status === "STOPPED") {
         this.stopAutoplay();
       };
+      this.props.project.pauseAll();
       this.props.project.stopAll();
       this.props.project.autoplay.play(
         // this.props.canvas.current,
