@@ -14,6 +14,7 @@ class AutoPlay {
   chainHighlight = false;
   highlightColor = "#00FFFF";
   chainHighlightColor = "#FFFFFF";
+  manualHighlightColor = "#FDFF00";
 
   constructor(text, canvas) {
     this.autoplay = text;

@@ -110,7 +110,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }, highlight = this.props.projectFile.autoplay.highlight, manual = false) => {
+  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, manual = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }, highlight = this.props.projectFile.autoplay.highlight, chainHighlight = this.props.projectFile.autoplay.chainHighlight) => {
     const currentKeyPressIndex = this.currentKeyPress.findIndex(
       ([px, py]) => px === x && py === y
     );
@@ -126,7 +126,11 @@ class Canvas extends Component {
       [x, y] = this.arrayCalculation([x, y], config.canvas_origin, "+");
     }
     if (manual && highlight) {
-      this.setHighlight(x - 1, y - 1, "#FDFF00");
+      this.setHighlight(x - 1, y - 1, this.props.projectFile.autoplay.manualHighlightColor);
+    }
+    if (chainHighlight) {
+      this.clearChainHighlight();
+      this.setChainHighlight(this.currentChain, this.props.projectFile.autoplay.chainHighlightColor);
     }
     console.log(`Note On - ${x.toString()} ${y.toString()}`);
     console.log([x, y, canvas_x, canvas_y])
@@ -172,7 +176,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }, highlight = this.props.projectFile.autoplay.highlight, manual = false) => {
+  keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, manual = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }, highlight = this.props.projectFile.autoplay.highlight, chainHighlight = this.props.projectFile.autoplay.chainHighlight) => {
     const currentKeyPressIndex = this.currentKeyPress.findIndex(
       ([px, py]) => px === x && py === y
     );
@@ -188,6 +192,10 @@ class Canvas extends Component {
     }
     if (manual && highlight) {
       this.setHighlight(x - 1, y - 1);
+    }
+    if (chainHighlight) {
+      this.clearChainHighlight();
+      this.setChainHighlight(this.currentChain, this.props.projectFile.autoplay.chainHighlightColor);
     }
     console.log(`Note Off - ${x.toString()} ${y.toString()}`);
 
@@ -237,6 +245,7 @@ class Canvas extends Component {
   chainChange = (chain) => {
     console.log(`Chain Changed to ${(chain + 1)}`);
     if (chain !== this.currentChain) this.clearKeypressHistory();
+    this.clearChainHighlight(chain);
     this.setChainHighlight(chain, this.props.projectFile.autoplay.chainHighlightColor);
     this.currentChain = chain;
   };
@@ -261,8 +270,10 @@ class Canvas extends Component {
     }
   };
 
-  clearChainHighlight = () => {
-    const chainException = Array.from({ length: 8 }, (_, i) => i + 1).filter(num => num !== this.currentChain);
+  clearChainHighlight = (chain = this.currentChain) => {
+    const chainException = Array.from({ length: 8 }, (_, i) => i).filter(num => num !== chain);
+    console.log(`Current chain highlight: ${chain}`)
+    console.log(`Clearing chain highlight: ${chainException}`)
     for (const chain2 of chainException) { // Clear everything else
       this.setChainHighlight(chain2, undefined, false);
     }

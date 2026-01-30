@@ -10,7 +10,7 @@ class Button extends Component {
     {   
         if (!this.state.keyState) {
             this.setState({ keyState: true });
-            this.props.on(this.props.x, this.props.y, undefined, undefined, undefined, undefined, true);
+            this.props.on(this.props.x, this.props.y, undefined, undefined, true);
         }
     }
     
@@ -18,7 +18,7 @@ class Button extends Component {
     off = () => {
         if (this.state.keyState) {
             this.setState({ keyState: false });
-            this.props.off(this.props.x, this.props.y, undefined, undefined, undefined, undefined, true);
+            this.props.off(this.props.x, this.props.y, undefined, undefined, true);
         }
     }
 
