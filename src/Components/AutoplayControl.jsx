@@ -102,7 +102,7 @@ class AutoplayControl extends Component {
 
     return (
       <div>
-        <text>{`Autoplay ${statusText}`}</text>
+        <span>{`Autoplay ${statusText}`}</span>
         <div />
         <div style={{display: "inline-flex"}}>
           <button type="button" className="seek-control" onClick={this.backwardClicked}>&#60;</button>

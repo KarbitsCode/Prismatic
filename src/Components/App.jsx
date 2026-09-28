@@ -125,7 +125,7 @@ class App extends Component {
       })
       .catch((message) => {
         this.setState({statusMessage: "Error Loading Unipack"});
-        alert(`Error Loading Unipack: ${projectPack.name}`)
+        alert(`Error Loading Unipack: ${projectPack.name}\n${message}`)
         console.error("Error Loading Unipack")
         console.error(message);
         this.projectFileReader.current.cleanupProgressBar();
@@ -153,8 +153,8 @@ class App extends Component {
           this.state.inputDevice.name === e.port.name
         ) {
           this.setState({ inputDevice: undefined });
-          this.setState({ inputDeviceConfig: undefined });
-          this.setState({ inputDeviceName: undefined });
+          this.setState({ inputConfig: undefined });
+          this.setState({ inputConfigName: undefined });
         }
       } else if (e.port.type === "output") {
         if (
@@ -162,8 +162,8 @@ class App extends Component {
           this.state.outputDevice.name === e.port.name
         ) {
           this.setState({ outputDevice: undefined });
-          this.setState({ outputDeviceConfig: undefined });
-          this.setState({ outputDeviceName: undefined });
+          this.setState({ outputConfig: undefined });
+          this.setState({ outputConfigName: undefined });
         }
       }
     }
@@ -230,7 +230,7 @@ class App extends Component {
       <React.Fragment>
         <div className="main">
           <div className="sidebar">
-            <text>203 | Prismatic (Tech Preview Demo)</text>
+            <span>203 | Prismatic (Tech Preview Demo)</span>
             <div>
               <a
                 href="https://play.203.io/"
@@ -243,20 +243,20 @@ class App extends Component {
                   })
                 }}
               >
-                <text>Load Amethyst Player</text>
+                <span>Load Amethyst Player</span>
               </a>
             </div>
             <div className="sidebarItem" />
-            <text className="sidebarItem">
+            <span className="sidebarItem">
               {this.state.statusMessage}
-            </text>
+            </span>
             <div />
             <ProjectFileReader
               ref={this.projectFileReader}
               loadProjectFile={this.loadProjectFile}
             ></ProjectFileReader>
             <div className="sidebarItem" />
-            <text>UI Layout</text>
+            <span>UI Layout</span>
             <Select
               className="sidebarItem"
               options={this.prepSelectConfig(deviceConfigs, "layout")}
@@ -271,7 +271,7 @@ class App extends Component {
               }
               onChange={this.setLayoutConfig.bind(this)}
             />
-            <text>Midi Input Device</text>
+            <span>Midi Input Device</span>
             <Select
               className="sidebarItem"
               options={this.prepSelectConfig(this.state.midiInput)}
@@ -286,7 +286,7 @@ class App extends Component {
               }
               onChange={this.setInputDevice.bind(this)}
             />
-            <text>Midi Input Device Config</text>
+            <span>Midi Input Device Config</span>
             <Select
               className="sidebarItem"
               options={this.prepSelectConfig(deviceConfigs, "keymap")}
@@ -301,7 +301,7 @@ class App extends Component {
               }
               onChange={this.setInputConfig.bind(this)}
             />
-            <text>Midi Output Device</text>
+            <span>Midi Output Device</span>
             <Select
               className="sidebarItem"
               options={this.prepSelectConfig(this.state.midiOutput)}
@@ -316,7 +316,7 @@ class App extends Component {
               }
               onChange={this.setOutputDevice.bind(this)}
             />
-            <text>Midi Output Device Config</text>
+            <span>Midi Output Device Config</span>
             <Select
               className="sidebarItem"
               options={this.prepSelectConfig(deviceConfigs, "keymap")}
