@@ -20,8 +20,6 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
-    env:
-      NPM_CONFIG_LOGLEVEL: silly
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7.0.1
