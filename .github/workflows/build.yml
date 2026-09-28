@@ -1,0 +1,54 @@
+name: Prismatic build
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - .github/**
+      - .gitignore
+      - README.md
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      NPM_CONFIG_LOGLEVEL: silly
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js and npm
+        uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 26.x
+
+      - name: Build application
+        shell: pwsh
+        working-directory: ./
+        run: |
+          cmd.exe /c "ci.bat"
+
+      - name: Compare artifact build
+        uses: KarbitsCode/artifact-comparer@2c9a24b182f79dfbb05e0b244cf62d3faf560108
+        with:
+          artifact-name: package-build
+          path: '*.tgz'
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: package-build
+          compression-level: 9
+          path: |
+            *.tgz
