@@ -3,6 +3,7 @@ class AutoPlay {
   status = "STOPPED";
   progress = 0;
   total = 0;
+  runId = 0;
   currentChain = 0;
   canvas = undefined;
   lastEventTime = undefined;
@@ -24,6 +25,7 @@ class AutoPlay {
 
   play = async (callback) => {
     console.log("Autoplay Started");
+    const runId = ++this.runId;
     // console.time("Autoplay")
     if (this.progress === 0)
     {
@@ -90,6 +92,10 @@ class AutoPlay {
           if (ms < 10)
             break;
           await this.wait(parseInt(command[1]));
+          if (this.runId !== runId) {
+            console.log("Stale autoplay loop exited");
+            return;
+          }
           break;
         case 'c':
         case 'chain':
