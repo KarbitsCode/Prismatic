@@ -1,0 +1,2 @@
+function chain { foreach ($c in $args) { $global:LASTEXITCODE = 0; & $c; if ($LASTEXITCODE -ne 0) { return } } }
+chain { git pull -v --prune --no-edit } { git gc } { npm i } { npm run build } { copy build build2 -r -v } { npx patch-package } { npm run build } { npm pack }

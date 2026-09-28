@@ -1,1 +1,1 @@
-npm i && npm run build && copy build build2 && npx patch-package && npm run build && npm pack
+@pwsh -File "%~dp0ci.ps1" %*
