@@ -37,7 +37,7 @@ jobs:
         shell: pwsh
         working-directory: ./
         run: |
-          cmd.exe /c "ci.bat"
+          ./ci.ps1
 
       - name: Compare artifact build
         uses: KarbitsCode/artifact-comparer@2c9a24b182f79dfbb05e0b244cf62d3faf560108
