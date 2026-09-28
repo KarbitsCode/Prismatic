@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-class Button extends Component {
+class Button extends PureComponent {
     state = {
         keyState: false,
     }
@@ -23,7 +23,7 @@ class Button extends Component {
     }
 
     // Updates
-    shouldUpdate = (nextProps) => this.props.color !== nextProps.color
+    // shouldUpdate = (nextProps) => this.props.color !== nextProps.color
 
     render = () => (
         <div style={{position: 'relative', display: 'grid'}}>
