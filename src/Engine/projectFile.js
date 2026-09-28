@@ -155,6 +155,10 @@ class ProjectFile {
             console.log(command);
             let [chain, x, y, filename] = [parseInt(command[0]) - 1, parseInt(command[2]) - 1, parseInt(command[1]) - 1, command[3].toLowerCase()];
             console.log([chain, x, y, filename]);
+            if (this.soundFiles[filename] === undefined) {
+              reject(`Sound file missing: ${filename}`);
+              return;
+            }
             this.keySound[chain][x][y].push([this.soundFiles[filename], command.slice(4)]);
           }
           catch(e)
