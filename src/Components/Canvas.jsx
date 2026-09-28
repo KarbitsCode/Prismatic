@@ -110,7 +110,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, manual = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }, highlight = this.props.projectFile.autoplay.highlight, chainHighlight = this.props.projectFile.autoplay.chainHighlight) => {
+  keyOn = (x, y, config = this.props.layoutConfig, reverseOffset = false, manual = false, spam = this.props.projectFile?.autoplay?.spam, highlight = this.props.projectFile?.autoplay?.highlight, chainHighlight = this.props.projectFile?.autoplay?.chainHighlight) => {
     const currentKeyPressIndex = this.currentKeyPress.findIndex(
       ([px, py]) => px === x && py === y
     );
@@ -175,7 +175,7 @@ class Canvas extends Component {
     }
   };
 
-  keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, manual = false, spam = { sound: this.props.projectFile.autoplay.spam.sound, led: this.props.projectFile.autoplay.spam.led }, highlight = this.props.projectFile.autoplay.highlight, chainHighlight = this.props.projectFile.autoplay.chainHighlight) => {
+  keyOff = (x, y, config = this.props.layoutConfig, reverseOffset = false, manual = false, spam = this.props.projectFile?.autoplay?.spam, highlight = this.props.projectFile?.autoplay?.highlight, chainHighlight = this.props.projectFile?.autoplay?.chainHighlight) => {
     const currentKeyPressIndex = this.currentKeyPress.findIndex(
       ([px, py]) => px === x && py === y
     );
@@ -245,7 +245,7 @@ class Canvas extends Component {
     console.log(`Chain Changed to ${(chain + 1)}`);
     if (chain !== this.currentChain) this.clearKeypressHistory();
     this.clearChainHighlight(chain);
-    this.setChainHighlight(chain, this.props.projectFile.autoplay.chainHighlightColor);
+    this.setChainHighlight(chain, this.props.projectFile?.autoplay?.chainHighlightColor);
     this.currentChain = chain;
   };
 
@@ -260,7 +260,7 @@ class Canvas extends Component {
     this.setHighlightCanvas(x, y, color);
   };
 
-  setChainHighlight = (chain, color, on = this.props.projectFile.autoplay.chainHighlight) => {
+  setChainHighlight = (chain, color, on = this.props.projectFile?.autoplay?.chainHighlight) => {
     // console.log(`Set Color chain ${chain} ${color}`)
     this.setHighlight("chain", this.currentChain);
     this.setHighlight("chain", chain);
